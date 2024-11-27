@@ -24,14 +24,14 @@ class sqlite {
       final directory = await getExternalStorageDirectory();
       localPath = directory!.path;
       var databasesPath = await localPath;
-      String path = databasesPath + '/'+sqlfile;
+      String path = databasesPath + "/" + sqlfile;
       var db = await openDatabase(path, version: 1, onCreate: _onCreate);
       return db;
     } else {
       final directory = await getApplicationDocumentsDirectory();
       localPath = directory.path;
       var databasesPath = await localPath;
-      String path = databasesPath + '/'+sqlfile;
+      String path = databasesPath + "/" + sqlfile;
       var db = await openDatabase(path, version: 1, onCreate: _onCreate);
       return db;
     }
@@ -66,6 +66,7 @@ class sqlite {
     final db = await openDb();
     await db.insert(table, data);
   }
+
   Future<void> insertData2(Map<String, dynamic> data) async {
     final db = await openDb();
     await db.insert(table2, data);
@@ -76,6 +77,7 @@ class sqlite {
     final db = await openDb();
     return await db.query(table);
   }
+
   //获取数据
   Future<List<Map<String, dynamic>>> getAllData2() async {
     final db = await openDb();
@@ -89,6 +91,7 @@ class sqlite {
         await db.query(table, where: 'id = ?', whereArgs: [id]);
     return maps[0];
   }
+
   //获取的单挑数据
   Future<Map<String, dynamic>> getOneData2(int id) async {
     final db = await openDb();
@@ -102,6 +105,7 @@ class sqlite {
     final db = await openDb();
     await db.delete(table, where: 'id = ?', whereArgs: [id]);
   }
+
   //删除数据
   Future<void> deleteData2(int id) async {
     final db = await openDb();
@@ -113,6 +117,7 @@ class sqlite {
     final db = await openDb();
     await db.update(table, data, where: 'id = ?', whereArgs: [data['id']]);
   }
+
   //修改数据
   Future<void> updateData2(Map<String, dynamic> data) async {
     final db = await openDb();
