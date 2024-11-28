@@ -32,12 +32,16 @@ class _SettingState extends State<Setting> {
           const Divider(),
           Consumer<ThemeProvider>(
             builder: (context, themeProvider, child) {
-              return SwitchListTile(
-                title: const Text("暗黑模式"),
-                value: themeProvider.isDarkMode,
-                onChanged: (bool value) {
-                  themeProvider.toggleTheme();
-                },
+              return ListTile(
+                title:
+                    Text("主题模式 ${_getThemeModeText(themeProvider.themeMode)}"),
+                // subtitle: Text(_getThemeModeText(themeProvider.themeMode)),
+                trailing: IconButton(
+                  icon: const Icon(Icons.swap_horiz),
+                  onPressed: () {
+                    themeProvider.toggleTheme();
+                  },
+                ),
               );
             },
           ),
@@ -45,9 +49,7 @@ class _SettingState extends State<Setting> {
           ListTile(
               title: const Text("切换语言"),
               trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {
-
-              }),
+              onTap: () {}),
           const Divider(),
           ListTile(
             title: const Text("检查更新"),
@@ -68,11 +70,35 @@ class _SettingState extends State<Setting> {
               } else {
                 throw "Could not launch $url";
               }
-                  },
+            },
           ),
           const Divider(),
         ],
       ),
     );
   }
+
+  /// 根据主题模式返回对应的文字描述
+  String _getThemeModeText(ThemeMode themeMode) {
+    switch (themeMode) {
+      case ThemeMode.system:
+        return '跟随系统';
+      case ThemeMode.light:
+        return '亮色模式';
+      case ThemeMode.dark:
+        return '暗色模式';
+    }
+  }
 }
+// Consumer<ThemeProvider>(
+// builder: (context, themeProvider, child) {
+// return ListTile(
+// title: const Text("暗黑模式"),
+// trailing: Switch(
+// value: themeProvider.themeMode == ThemeMode.dark,
+// onChanged: (bool value) {
+// themeProvider.toggleTheme();
+// },
+// ),
+// );
+// },

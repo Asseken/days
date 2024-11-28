@@ -116,28 +116,48 @@ class AppTheme {
         ),
       ),
     ),
-
   );
 }
 
 /// 主题切换提供者
 class ThemeProvider extends ChangeNotifier {
-  ThemeMode _themeMode = ThemeMode.light;
-
+  // ThemeMode _themeMode = ThemeMode.light;
+// 当前主题模式，默认为跟随系统
+  ThemeMode _themeMode = ThemeMode.system;
   ThemeProvider() {
     _loadThemeFromStorage();
   }
 
   ThemeMode get themeMode => _themeMode;
 
-  bool get isDarkMode => _themeMode == ThemeMode.dark;
+  // bool get isDarkMode => _themeMode == ThemeMode.dark;
 
+  /// 切换主题
   void toggleTheme() {
-    _themeMode =
-        _themeMode == ThemeMode.light ? ThemeMode.dark : ThemeMode.light;
+    switch (_themeMode) {
+      case ThemeMode.system:
+        _themeMode = ThemeMode.light;
+        break;
+      case ThemeMode.light:
+        _themeMode = ThemeMode.dark;
+        break;
+      case ThemeMode.dark:
+        _themeMode = ThemeMode.system;
+        break;
+    }
 
     _saveThemeToStorage();
     notifyListeners(); // 重要：通知所有监听者
+  }
+
+  /// 设置特定的主题模式
+  void setThemeMode(ThemeMode mode) {
+    _themeMode = mode;
+
+    // 保存主题状态到本地存储
+    _saveThemeToStorage();
+
+    notifyListeners();
   }
 
   Future<void> _loadThemeFromStorage() async {
@@ -148,6 +168,8 @@ class ThemeProvider extends ChangeNotifier {
         notifyListeners();
       }
     } catch (e) {
+      // 如果没有存储的主题，保持默认系统主题
+      _themeMode = ThemeMode.system;
       print('加载主题失败: $e');
     }
   }
