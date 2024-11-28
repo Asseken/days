@@ -48,6 +48,16 @@ class AppTheme {
         ),
       ),
     ),
+    //TEXT BUTTON
+    textButtonTheme: TextButtonThemeData(
+      style: TextButton.styleFrom(
+        backgroundColor: Colors.blue,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    ),
   );
 
   /// 暗色主题配置
@@ -96,6 +106,17 @@ class AppTheme {
         ),
       ),
     ),
+    //TEXT BUTTON
+    textButtonTheme: TextButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        backgroundColor: Colors.deepPurple,
+        foregroundColor: Colors.white,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ),
+    ),
+
   );
 }
 
