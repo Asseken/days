@@ -1,6 +1,9 @@
 import 'package:days/model/update.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
+
+import '../theme/theme.dart';
 
 class Setting extends StatefulWidget {
   const Setting({super.key});
@@ -27,12 +30,16 @@ class _SettingState extends State<Setting> {
                 child: const FlutterLogo(size: 100)),
           ),
           const Divider(),
-          ListTile(
-            title: const Text("暗黑模式"),
-            trailing: Switch(
-              value: false,
-              onChanged: (bool value) {},
-            ),
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return SwitchListTile(
+                title: const Text("暗黑模式"),
+                value: themeProvider.isDarkMode,
+                onChanged: (bool value) {
+                  themeProvider.toggleTheme();
+                },
+              );
+            },
           ),
           const Divider(),
           ListTile(
