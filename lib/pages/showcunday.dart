@@ -63,68 +63,100 @@ class _shouwcuntdayState extends State<shouwcuntday> {
         ],
         backgroundColor: const Color.fromARGB(255, 181, 234, 202),
       ),
-      body: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Container(
-            // color: const Color.fromARGB(255, 179, 237, 201),
-            width: MediaQuery.of(context).size.width * 0.7,
-            height: MediaQuery.of(context).size.height * 0.35,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: const Color.fromARGB(255, 179, 237, 201),
-            ),
-            child: Column(
-              children: [
-                const Padding(padding: EdgeInsets.all(10)),
-                Center(
-                  child: SingleChildScrollView(
-                    scrollDirection: Axis.horizontal, // 设置为水平方向滚动
-                    child: SizedBox(
-                      // width: double.infinity,
-                      child: Text(
-                        _dataList?['name']??'',
-                        style: const TextStyle(
-                            fontSize: 37, fontWeight: FontWeight.bold),
-                        maxLines: 1,
+      body:SafeArea(
+        child: OrientationBuilder(
+          builder: (context, orientation) {
+            return Center(
+              child: LayoutBuilder(
+                builder: (context, constraints) {
+                  // 计算最佳宽度和边距
+                  double maxWidth = constraints.maxWidth;
+                  double containerWidth = orientation == Orientation.portrait
+                      ? maxWidth * 0.9  // 竖屏时占据90%宽度
+                      : maxWidth * 0.7;  // 横屏时占据70%宽度
+
+                  return SingleChildScrollView(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      child: Container(
+                        width: containerWidth,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          color: const Color.fromARGB(255, 179, 237, 201),
+                        ),
+                        child: _buildDetailContent(_dataList),
                       ),
                     ),
-                  ),
-                ),
-                const SizedBox(
-                  height: 10,
-                ),
-                Padding(
-                    padding: const EdgeInsets.all(10),
-                    child: SizedBox(
-                      child: Text(_dataList?['time'] != null
-                          ?
-                      "距离${_dataList?['name']}${compareDates(_dataList?['time'])}":"",
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Color.fromARGB(233, 84, 151, 243),
-                        ),
-                        maxLines: 2,
-                      ),
-                    )),
-                const SizedBox(height: 10),
-                SizedBox(
-                  child: Text("描述:${_dataList?['description']}",
-                      style: const TextStyle(fontSize: 20),
-                      overflow: TextOverflow.ellipsis,
-                      softWrap: true,
-                      maxLines: 2),
-                ),
-                Text("时间:${_dataList?['time']}",
-                    style: const TextStyle(fontSize: 20)),
-                const Divider(),
-                Text("标记:${_dataList?['Typedes']}",
-                    style: const TextStyle(fontStyle: FontStyle.italic)),
-              ],
-            ),
-          ),
+                  );
+                },
+              ),
+            );
+          },
         ),
       ),
     );
   }
+}
+
+Widget _buildDetailContent(_dataList) {
+  return Center(
+    child: Padding(
+      padding: const EdgeInsets.all(10.0),
+      child: Container(
+// color: const Color.fromARGB(255, 179, 237, 201),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(20),
+          color: const Color.fromARGB(255, 179, 237, 201),
+        ),
+        child: Column(
+          children: [
+            const Padding(padding: EdgeInsets.all(10)),
+            Center(
+              child: SingleChildScrollView(
+                scrollDirection: Axis.horizontal, // 设置为水平方向滚动
+                child: SizedBox(
+// width: double.infinity,
+                  child: Text(
+                    _dataList?['name']??'',
+                    style: const TextStyle(
+                        fontSize: 37, fontWeight: FontWeight.bold),
+                    maxLines: 1,
+                  ),
+                ),
+              ),
+            ),
+            const SizedBox(
+              height: 10,
+            ),
+            Padding(
+                padding: const EdgeInsets.all(10),
+                child: SizedBox(
+                  child: Text(_dataList?['time'] != null
+                      ?
+                  "距离${_dataList?['name']}${compareDates(_dataList?['time'])}":"",
+                    style: const TextStyle(
+                      fontSize: 20,
+                      color: Color.fromARGB(233, 84, 151, 243),
+                    ),
+                    maxLines: 2,
+                  ),
+                )),
+            const SizedBox(height: 10),
+            SizedBox(
+              child: Text("描述:${_dataList?['description']}",
+                  style: const TextStyle(fontSize: 20),
+                  overflow: TextOverflow.ellipsis,
+                  softWrap: true,
+                  maxLines: 2),
+            ),
+            Text("时间:${_dataList?['time']}",
+                style: const TextStyle(fontSize: 20)),
+            const Divider(),
+            Text("标记:${_dataList?['Typedes']}",
+                style: const TextStyle(fontStyle: FontStyle.italic)),
+          ],
+        ),
+      ),
+    ),
+  );
 }
