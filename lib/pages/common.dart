@@ -126,7 +126,7 @@ class _AddEditcommonState extends State<AddEditcommon> {
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.id == null ? "添加倒数日" : "编辑倒数日"),
-        backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+        // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
       ),
       body: Container(
         padding: const EdgeInsets.all(15),

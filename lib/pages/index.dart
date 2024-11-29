@@ -45,7 +45,7 @@ class _firstpageState extends State<firstpage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("倒数日"),
-        backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+        // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
         actions: [
           IconButton(
             onPressed: () {},
@@ -117,12 +117,6 @@ class _firstpageState extends State<firstpage> {
               },
               child: GestureDetector(
                 child: Card(
-                  color: const Color.fromARGB(255, 181, 234, 202),
-                  shape: const RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(
-                      Radius.circular(10),
-                    ),
-                  ),
                   elevation: 3,
                   margin: const EdgeInsets.fromLTRB(10, 8, 10, 5),
                   child: Column(
@@ -151,7 +145,7 @@ class _firstpageState extends State<firstpage> {
                                   compareDates(
                                     item['time'],
                                   ),
-                                  style: const TextStyle(fontSize: 32),
+                                  style: const TextStyle(fontSize: 35),
                                 ),
                               )
                             ],

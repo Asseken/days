@@ -18,7 +18,7 @@ class _SettingState extends State<Setting> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("设置"),
-        backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+        // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
       ),
       body: ListView(
         children: [

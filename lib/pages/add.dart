@@ -86,7 +86,7 @@ class _addpageState extends State<addpage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("添加倒数日"),
-        backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+        // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),

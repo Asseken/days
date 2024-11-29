@@ -52,7 +52,7 @@ class _StartpageState extends State<Startpage> {
         height: MediaQuery.of(context).size.height,
         child: const FlutterLogo(),
       ),
-      backgroundColor: const Color.fromARGB(255, 236, 232, 243),
+      // backgroundColor: const Color.fromARGB(255, 236, 232, 243),
     );
   }
 }

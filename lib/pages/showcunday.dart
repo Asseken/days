@@ -61,7 +61,7 @@ class _shouwcuntdayState extends State<shouwcuntday> {
             },
           ),
         ],
-        backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+        // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
       ),
       body:SafeArea(
         child: OrientationBuilder(
@@ -82,7 +82,7 @@ class _shouwcuntdayState extends State<shouwcuntday> {
                         width: containerWidth,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(20),
-                          color: const Color.fromARGB(255, 179, 237, 201),
+                          // color: const Color.fromARGB(255, 179, 237, 201),
                         ),
                         child: _buildDetailContent(_dataList),
                       ),
@@ -106,7 +106,7 @@ Widget _buildDetailContent(_dataList) {
 // color: const Color.fromARGB(255, 179, 237, 201),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(20),
-          color: const Color.fromARGB(255, 179, 237, 201),
+          color: const Color.fromARGB(255, 221, 179, 255),
         ),
         child: Column(
           children: [

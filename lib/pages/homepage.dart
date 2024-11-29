@@ -32,7 +32,7 @@ class _HomepageState extends State<Homepage> {
       body: _listpage[_selectedindex],
 
       bottomNavigationBar: BottomNavigationBar(
-        unselectedItemColor: Colors.grey,
+        // unselectedItemColor: Colors.grey,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
@@ -50,7 +50,7 @@ class _HomepageState extends State<Homepage> {
           ),
         ],
         currentIndex: _selectedindex,
-        selectedItemColor: Colors.green,
+        // selectedItemColor: Colors.green,
         onTap: _topp,
       ),
     );

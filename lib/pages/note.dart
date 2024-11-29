@@ -13,7 +13,6 @@ class _everydayState extends State<everyday> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("备忘录"),
-        backgroundColor: const Color.fromARGB(255, 181, 234, 202),
       ),
     );
   }

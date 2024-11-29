@@ -7,7 +7,7 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     // 主要颜色配置
     primaryColor: Colors.blue,
-
+    scaffoldBackgroundColor: const Color.fromARGB(255, 245, 237, 246),
     // 颜色方案配置（用于按钮、AppBar等）
     colorScheme: ColorScheme.light(
       primary: const Color.fromARGB(255, 208, 188, 242),
@@ -19,7 +19,7 @@ class AppTheme {
 
     // 应用程序栏主题
     appBarTheme: const AppBarTheme(
-      color: Color.fromARGB(255, 181, 234, 202),
+      color: Color.fromARGB(255, 221, 179, 255),
       elevation: 0,
       iconTheme: IconThemeData(color: Colors.white),
     ),
@@ -58,6 +58,24 @@ class AppTheme {
         ),
       ),
     ),
+    //card theme
+    cardTheme: CardTheme(
+      color: const Color.fromARGB(255, 221, 179, 255),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+    //底部状态栏
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Color.fromARGB(255, 221, 179, 255),
+      selectedItemColor: Color.fromARGB(255, 221, 179, 255),
+      unselectedItemColor: Color.fromARGB(255, 193, 192, 192),
+    ),
+    //FloatingActionButton配置
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: Color.fromARGB(255, 221, 179, 255),
+      foregroundColor: Colors.white,
+    ),
   );
 
   /// 暗色主题配置
@@ -85,7 +103,7 @@ class AppTheme {
     textTheme: const TextTheme(
       displayLarge: TextStyle(
           fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-      bodyLarge: const TextStyle(fontSize: 16, color: Colors.white70),
+      bodyLarge: TextStyle(fontSize: 16, color: Colors.white70),
     ),
 
     // 输入框主题
@@ -115,6 +133,19 @@ class AppTheme {
           borderRadius: BorderRadius.circular(8),
         ),
       ),
+    ),
+    //card theme
+    cardTheme: CardTheme(
+      color: Colors.deepPurple,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(10),
+      ),
+    ),
+    //底部状态栏
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+      backgroundColor: Color.fromARGB(255, 221, 179, 255),
+      selectedItemColor: Colors.deepPurple,
+      unselectedItemColor: Colors.white,
     ),
   );
 }

@@ -20,7 +20,7 @@ class _addnotepageState extends State<addnotepage> {
               // 保存
             },
           ),],
-        backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+        // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
       ),
       body: const Column(
         children: [
