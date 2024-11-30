@@ -2,12 +2,12 @@ import 'package:days/pages/add.dart';
 import 'package:days/pages/setting.dart';
 import 'package:days/pages/showcunday.dart';
 import 'package:days/sql/sql_c.dart';
-import 'package:days/widget/flbutton.dart';
+import 'package:days/widget/FlButton.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../model/datejs.dart';
-import '../widget/deledialog.dart';
+import '../widget/Dialog.dart';
 import 'common.dart';
 
 class firstpage extends StatefulWidget {
@@ -104,7 +104,7 @@ class _firstpageState extends State<firstpage> {
                   return false; // 触发删除
                 } else if (direction == DismissDirection.endToStart) {
                   // 右滑编辑
-                  edit.showEditDialog(
+                  Edit.showEditDialog(
                     context,
                     item['id'],
                     dbHelper,
@@ -118,7 +118,7 @@ class _firstpageState extends State<firstpage> {
               child: GestureDetector(
                 child: Card(
                   elevation: 3,
-                  margin: const EdgeInsets.fromLTRB(10, 8, 10, 5),
+                  margin: const EdgeInsets.fromLTRB(5, 8, 5, 5),
                   child: Column(
                     children: [
                       ListTile(

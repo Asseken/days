@@ -30,10 +30,11 @@ Widget flbutton(context, Function loadData) {
   );
 }
 
-Widget AddnoteFlButton() {
+Widget AddnoteFlButton(context, Function SaveData) {
   return FloatingActionButton(
     onPressed: () {
       // Add your onPressed code here!
+      SaveData();
     },
     backgroundColor: Colors.green,
     child: const Icon(Icons.save),

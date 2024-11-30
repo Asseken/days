@@ -80,13 +80,18 @@ class Edit {
 }
 
 class AddNoteTag {
-  static void showAddNoteTagDialog(BuildContext context) {
+  static void showAddNoteTagDialog(
+      BuildContext context, Function(String) onTagAdded) {
+    final TextEditingController _tagController = TextEditingController();
+
     showDialog(
       context: context,
       builder: (context) {
         return AlertDialog(
           title: const Text("添加标签"),
-          content: const TextField(),
+          content: TextField(
+            controller: _tagController,
+          ),
           actions: [
             TextButton(
               onPressed: () => Navigator.pop(context),
@@ -94,7 +99,11 @@ class AddNoteTag {
             ),
             TextButton(
               onPressed: () async {
-                Navigator.pop(context);
+                if (_tagController.text.isNotEmpty) {
+                  // 将新标签传递回调用页面
+                  onTagAdded(_tagController.text);
+                  Navigator.pop(context);
+                }
               },
               child: const Text("确认"),
             ),

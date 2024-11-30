@@ -39,9 +39,13 @@ android {
         // You can update the following values to match your application needs.
         // For more information, see: https://docs.flutter.dev/deployment/android#reviewing-the-gradle-build-configuration.
         minSdk = flutter.minSdkVersion
+//        minSdkVersion 23 // 最低支持 Android 6.0 支持的 API 级别使用 flutter quill
         targetSdk = flutter.targetSdkVersion
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
+//        ndk {
+//            abiFilters "arm64-v8a","x86_64" // 只编译 64 位 arm 架构 后续增加 x86，x86_64，armeabi-v7a，armeabi，
+//        }
     }
     signingConfigs {
         release {

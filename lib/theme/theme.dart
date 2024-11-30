@@ -72,7 +72,7 @@ class AppTheme {
       unselectedItemColor: Color.fromARGB(255, 193, 192, 192),
     ),
     //FloatingActionButton配置
-    floatingActionButtonTheme: FloatingActionButtonThemeData(
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
       backgroundColor: Color.fromARGB(255, 221, 179, 255),
       foregroundColor: Colors.white,
     ),
