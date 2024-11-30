@@ -10,7 +10,8 @@
     <application
         android:label="days"
         android:name="${applicationName}"
-        android:icon="@mipmap/ic_launcher">
+        android:icon="@mipmap/ic_launcher"
+        android:enableOnBackInvokedCallback="true"> <!-- 这里添加了属性 -->
         <activity
             android:name=".MainActivity"
             android:exported="true"
