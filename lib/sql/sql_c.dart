@@ -54,6 +54,7 @@ class sqlite {
         title TEXT,
         subtitle TEXT,
         time TEXT,
+        Tag TEXT,
         imagesrc TEXT,
         description TEXT,
         music TEXT,
@@ -61,11 +62,13 @@ class sqlite {
       )
     ''');
   }
+
 //插入数据
   Future<void> insertData(Map<String, dynamic> data) async {
     final db = await openDb();
     await db.insert(table, data);
   }
+
 //插入数据
   Future<void> insertData2(Map<String, dynamic> data) async {
     final db = await openDb();
@@ -83,16 +86,19 @@ class sqlite {
     final db = await openDb();
     return await db.query(table2);
   }
+
 //搜索数据
   Future<List<Map<String, dynamic>>> searchData(String name) async {
     final db = await openDb();
     return await db.query(table, where: 'name = ?', whereArgs: [name]);
   }
+
 //搜索数据
   Future<List<Map<String, dynamic>>> searchData2(String title) async {
     final db = await openDb();
     return await db.query(table2, where: 'title = ?', whereArgs: [title]);
   }
+
   //获取的单挑数据
   Future<Map<String, dynamic>> getOneData(int id) async {
     final db = await openDb();

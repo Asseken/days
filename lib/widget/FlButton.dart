@@ -2,7 +2,7 @@ import 'package:days/pages/add.dart';
 import 'package:days/pages/common.dart';
 import 'package:flutter/material.dart';
 
-Widget flbutton(context ,Function loadData) {
+Widget flbutton(context, Function loadData) {
   return SizedBox(
     width: 70,
     child: FloatingActionButton(
@@ -11,10 +11,10 @@ Widget flbutton(context ,Function loadData) {
           //   context,
           //   MaterialPageRoute(builder: (context) => addpage()),
           // );
-          final result = await Navigator.push(
-              context, MaterialPageRoute(builder: (context) => const AddEditcommon()));
+          final result = await Navigator.push(context,
+              MaterialPageRoute(builder: (context) => const AddEditcommon()));
 
-         if (result == true) {
+          if (result == true) {
             loadData();
             // Navigator.pop(context);
           }
@@ -27,5 +27,15 @@ Widget flbutton(context ,Function loadData) {
             Icon(Icons.add),
           ],
         )),
+  );
+}
+
+Widget AddnoteFlButton() {
+  return FloatingActionButton(
+    onPressed: () {
+      // Add your onPressed code here!
+    },
+    backgroundColor: Colors.green,
+    child: const Icon(Icons.save),
   );
 }

@@ -127,6 +127,12 @@ class _AddEditcommonState extends State<AddEditcommon> {
       appBar: AppBar(
         title: Text(widget.id == null ? "添加倒数日" : "编辑倒数日"),
         // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.save),
+            onPressed: _saveData,
+          ),
+        ],
       ),
       body: Container(
         padding: const EdgeInsets.all(15),
