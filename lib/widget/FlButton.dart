@@ -1,4 +1,5 @@
 import 'package:days/pages/add.dart';
+import 'package:days/pages/addnote.dart';
 import 'package:days/pages/common.dart';
 import 'package:flutter/material.dart';
 
@@ -7,10 +8,6 @@ Widget flbutton(context, Function loadData) {
     width: 70,
     child: FloatingActionButton(
         onPressed: () async {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(builder: (context) => addpage()),
-          // );
           final result = await Navigator.push(context,
               MaterialPageRoute(builder: (context) => const AddEditcommon()));
 
@@ -30,13 +27,26 @@ Widget flbutton(context, Function loadData) {
   );
 }
 
-Widget AddnoteFlButton(context, Function SaveData) {
+Widget AddNote(context, Function ref) {
+  return FloatingActionButton(
+    onPressed: () async {
+      final result = await Navigator.push(context,
+          MaterialPageRoute(builder: (context) => const addnotepage()));
+      if (result == true) {
+        ref();
+      }
+    },
+    child: const Icon(Icons.add),
+  );
+}
+
+Widget SaveNote(context, Function SaveData) {
   return FloatingActionButton(
     onPressed: () {
       // Add your onPressed code here!
       SaveData();
     },
-    backgroundColor: Colors.green,
+    // backgroundColor: Colors.green,
     child: const Icon(Icons.save),
   );
 }

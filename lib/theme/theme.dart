@@ -67,7 +67,7 @@ class AppTheme {
     ),
     //底部状态栏
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color.fromARGB(255, 221, 179, 255),
+      backgroundColor: Color.fromARGB(255, 253, 252, 255),
       selectedItemColor: Color.fromARGB(255, 221, 179, 255),
       unselectedItemColor: Color.fromARGB(255, 193, 192, 192),
     ),

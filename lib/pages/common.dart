@@ -52,7 +52,9 @@ class _AddEditcommonState extends State<AddEditcommon> {
 
   /// 保存数据
   Future<void> _saveData() async {
-    if (_titleController.text.isEmpty || formattedDate.isEmpty || _descriptionController.text.isEmpty) {
+    if (_titleController.text.isEmpty ||
+        formattedDate.isEmpty ||
+        _descriptionController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
         const SnackBar(content: Text("请填写完整信息！")),
       );
@@ -124,90 +126,95 @@ class _AddEditcommonState extends State<AddEditcommon> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.id == null ? "添加倒数日" : "编辑倒数日"),
-        // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: _saveData,
-          ),
-        ],
-      ),
-      body: Container(
-        padding: const EdgeInsets.all(15),
-        child: Column(
-          children: [
-            TextField(
-              controller: _titleController,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: '输入事件标题',
-              ),
-            ),
-            const SizedBox(height: 10),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                GestureDetector(
-                  onTap: _pickDate,
-                  child: Text(
-                    formattedDate,
-                    style: const TextStyle(fontSize: 18, color: Colors.blue),
-                  ),
-                ),
-                ToggleButtons(
-                  isSelected: [!isLunar, isLunar],
-                  onPressed: (index) {
-                    setState(() {
-                      isLunar = index == 1;
-                    });
-                  },
-                  borderRadius: BorderRadius.circular(5),
-                  selectedBorderColor: Colors.blue,
-                  selectedColor: Colors.white,
-                  fillColor: Colors.blue,
-                  children: const [
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: Text("公历"),
-                    ),
-                    Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 12),
-                      child: Text("阴历"),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const Divider(),
-            const SizedBox(height: 10),
-            DropdownMenuNode1(
-              onValueChanged: (value) {
-                typedesdropdownmenu = value;
-              },
-            ),
-            const SizedBox(height: 10),
-            TextField(
-              controller: _descriptionController,
-              maxLines: 2,
-              decoration: const InputDecoration(
-                border: OutlineInputBorder(),
-                labelText: '描述',
-              ),
-            ),
-            const SizedBox(height: 10),
-            SizedBox(
-              height: MediaQuery.of(context).size.height * 0.06,
-              width: MediaQuery.of(context).size.width * 0.9,
-              child: ElevatedButton(
-                onPressed: _saveData,
-                child: const Text("保存"),
-              ),
+        appBar: AppBar(
+          title: Text(widget.id == null ? "添加倒数日" : "编辑倒数日"),
+          // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+          actions: [
+            IconButton(
+              icon: const Icon(Icons.save),
+              onPressed: _saveData,
             ),
           ],
         ),
-      ),
-    );
+        body: SafeArea(
+            child: ListView(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(15),
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _titleController,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '输入事件标题',
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      GestureDetector(
+                        onTap: _pickDate,
+                        child: Text(
+                          formattedDate,
+                          style:
+                              const TextStyle(fontSize: 18, color: Colors.blue),
+                        ),
+                      ),
+                      ToggleButtons(
+                        isSelected: [!isLunar, isLunar],
+                        onPressed: (index) {
+                          setState(() {
+                            isLunar = index == 1;
+                          });
+                        },
+                        borderRadius: BorderRadius.circular(5),
+                        selectedBorderColor: Colors.blue,
+                        selectedColor: Colors.white,
+                        fillColor: Colors.blue,
+                        children: const [
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text("公历"),
+                          ),
+                          Padding(
+                            padding: EdgeInsets.symmetric(horizontal: 12),
+                            child: Text("阴历"),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                  const Divider(),
+                  const SizedBox(height: 10),
+                  DropdownMenuNode1(
+                    onValueChanged: (value) {
+                      typedesdropdownmenu = value;
+                    },
+                  ),
+                  const SizedBox(height: 10),
+                  TextField(
+                    controller: _descriptionController,
+                    maxLines: 2,
+                    decoration: const InputDecoration(
+                      border: OutlineInputBorder(),
+                      labelText: '描述',
+                    ),
+                  ),
+                  const SizedBox(height: 10),
+                  SizedBox(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width * 0.9,
+                    child: ElevatedButton(
+                      onPressed: _saveData,
+                      child: const Text("保存"),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        )));
   }
 }

@@ -16,7 +16,6 @@ class _HomepageState extends State<Homepage> {
   int _selectedindex = 0;
   final List<Widget> _listpage = [
     const firstpage(),
-    const addnotepage(),
     const everyday(),
     const Setting(),
   ];
@@ -30,17 +29,12 @@ class _HomepageState extends State<Homepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: _listpage[_selectedindex],
-
       bottomNavigationBar: BottomNavigationBar(
         // unselectedItemColor: Colors.grey,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(Icons.home),
             label: "首页",
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(Icons.add),
-            label: "添加",
           ),
           BottomNavigationBarItem(
               icon: Icon(Icons.date_range_sharp), label: "事项"),
