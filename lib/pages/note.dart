@@ -3,7 +3,9 @@ import 'package:days/widget/Dialog.dart';
 import 'package:days/widget/FlButton.dart';
 import 'package:flutter/material.dart';
 
+import '../model/local_data.dart';
 import '../sql/sql_c.dart';
+import 'commonnote.dart';
 
 class AllNoteDisplay extends StatefulWidget {
   const AllNoteDisplay({super.key});
@@ -15,19 +17,61 @@ class AllNoteDisplay extends StatefulWidget {
 class _AllNoteDisplayState extends State<AllNoteDisplay> {
   final sqlite dbHelper = sqlite();
   List<Map<String, dynamic>> _dataList = [];
+  bool _isCompactMode = false;
+  bool _isAscendingOrder = false; // 新增排序状态
 
   @override
   void initState() {
     super.initState();
     _loadData();
+    _loadUserPreferences(); // 加载用户偏好设置
+  }
+
+  // 加载用户偏好设置
+  Future<void> _loadUserPreferences() async {
+    try {
+      // 读取紧凑模式设置
+      _isCompactMode = await Storage.getData('compactMode') ?? false;
+
+      // 读取排序方式设置
+      _isAscendingOrder = await Storage.getData('sortOrder') ?? false;
+    } catch (e) {
+      // 如果读取失败，使用默认值
+      _isCompactMode = false;
+      _isAscendingOrder = false;
+    }
+    setState(() {}); // 触发界面重绘
   }
 
   Future<void> _loadData() async {
     final data = await dbHelper.getAllData2();
     setState(() {
       // _dataList = data;
-      _dataList = data.reversed.toList(); // 将数据反转，最新的数据会排在最前面
+      // _dataList = data.reversed.toList(); // 将数据反转，最新的数据会排在最前面
+      // 根据排序状态决定数据排序
+      _dataList = _isAscendingOrder ? data : data.reversed.toList();
     });
+  }
+
+  // 切换紧凑/宽松模式
+  void _toggleCompactMode() {
+    setState(() {
+      _isCompactMode = !_isCompactMode;
+    });
+    // 保存用户设置
+    Storage.setData('compactMode', _isCompactMode);
+  }
+
+  // 切换排序方式
+  void _toggleSortOrder() {
+    setState(() {
+      _isAscendingOrder = !_isAscendingOrder;
+      _dataList = _isAscendingOrder
+          ? _dataList.reversed.toList()
+          : _dataList.reversed.toList();
+    });
+    // 保存用户设置
+    Storage.setData('sortOrder', _isAscendingOrder);
   }
 
 // 修改后的编辑按钮点击事件
@@ -40,21 +84,79 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("备忘录"),
+        actions: [
+          //搜素按钮
+          IconButton(
+            icon: const Icon(Icons.search),
+            onPressed: () {},
+          ),
+          //添加
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () async {
+              final re = await Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => const AddNotePage()));
+              if (re != null) {
+                _loadData();
+              }
+            },
+          ),
+          //显示更多按钮
+          PopupMenuButton(
+            itemBuilder: (BuildContext context) {
+              return <PopupMenuEntry>[
+                PopupMenuItem(
+                  child: ListTile(
+                    leading: Icon(_isCompactMode
+                        ? Icons.view_comfortable
+                        : Icons.view_agenda),
+                    title: Text(_isCompactMode ? '宽松模式' : '紧凑模式'),
+                    onTap: () {
+                      setState(() {
+                        _isCompactMode = !_isCompactMode;
+                      });
+                      Navigator.pop(context);
+                    },
+                  ),
+                ),
+                PopupMenuItem(
+                  child: ListTile(
+                      leading: Icon(_isAscendingOrder
+                          ? Icons.arrow_upward
+                          : Icons.arrow_downward),
+                      title: Text(_isAscendingOrder ? '正序' : '倒序'),
+                      onTap: () {
+                        setState(() {
+                          _toggleSortOrder();
+                        });
+                        Navigator.pop(context);
+                      }),
+                ),
+              ];
+            },
+          ),
+        ],
       ),
       body: LayoutBuilder(
         builder: (context, constraints) {
           // 根据约束宽度动态计算列数
           int crossAxisCount;
-          if (constraints.maxWidth > 1800) {
-            crossAxisCount = 6;
-          } else if (constraints.maxWidth > 1200) {
-            crossAxisCount = 4;
-          } else if (constraints.maxWidth > 800) {
-            crossAxisCount = 3;
-          } else if (constraints.maxWidth > 400) {
-            crossAxisCount = 2;
+          if (_isCompactMode) {
+            // 紧凑模式
+            crossAxisCount = constraints.maxWidth > 400 ? 3 : 2;
           } else {
-            crossAxisCount = 2;
+            // 宽松模式
+            if (constraints.maxWidth > 1800) {
+              crossAxisCount = 6;
+            } else if (constraints.maxWidth > 1200) {
+              crossAxisCount = 4;
+            } else if (constraints.maxWidth > 800) {
+              crossAxisCount = 3;
+            } else if (constraints.maxWidth > 400) {
+              crossAxisCount = 2;
+            } else {
+              crossAxisCount = 2;
+            }
           }
           return GridView.builder(
             padding: const EdgeInsets.all(8),
@@ -111,6 +213,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                               style: const TextStyle(
                                 fontSize: 18,
                                 fontWeight: FontWeight.bold,
+                                color: Colors.black,
                               ),
                               // maxLines: 1,
                               // overflow: TextOverflow.ellipsis,
@@ -133,15 +236,14 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                           ),
 
                         const Spacer(), // 推动底部信息到底部
-
                         // 时间和标签
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
                               item['time'] ?? '',
-                              style: const TextStyle(
-                                fontSize: 12,
+                              style: TextStyle(
+                                fontSize: _isCompactMode ? 9 : 12, // 紧凑模式字体更小
                                 color: Colors.grey,
                               ),
                             ),
@@ -154,11 +256,15 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                                 borderRadius: BorderRadius.circular(12),
                               ),
                               child: Text(
-                                item['Tag'].length > 3
-                                    ? "${item['Tag'].substring(0, 3)}.."
-                                    : item['Tag'],
+                                _isCompactMode
+                                    ? item['Tag'].length > 3
+                                        ? "${item['Tag'].substring(0, 2)}"
+                                        : item['Tag']
+                                    : item['Tag'].length > 3
+                                        ? "${item['Tag'].substring(0, 3)}.."
+                                        : item['Tag'],
                                 style: TextStyle(
-                                  fontSize: 12,
+                                  fontSize: _isCompactMode ? 9 : 12, // 紧凑模式字体更小
                                   color: Colors.blue.shade800,
                                 ),
                               ),
