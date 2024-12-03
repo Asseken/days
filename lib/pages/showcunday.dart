@@ -47,7 +47,9 @@ class _shouwcuntdayState extends State<shouwcuntday> {
               final updatedData = await Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => AddEditcommon(id: widget.id,),
+                  builder: (context) => AddEditcommon(
+                    id: widget.id,
+                  ),
                 ),
               );
               // 如果有更新数据，触发主页的更新函数
@@ -63,7 +65,7 @@ class _shouwcuntdayState extends State<shouwcuntday> {
         ],
         // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
       ),
-      body:SafeArea(
+      body: SafeArea(
         child: OrientationBuilder(
           builder: (context, orientation) {
             return Center(
@@ -72,12 +74,13 @@ class _shouwcuntdayState extends State<shouwcuntday> {
                   // 计算最佳宽度和边距
                   double maxWidth = constraints.maxWidth;
                   double containerWidth = orientation == Orientation.portrait
-                      ? maxWidth * 0.9  // 竖屏时占据90%宽度
-                      : maxWidth * 0.7;  // 横屏时占据70%宽度
+                      ? maxWidth * 0.9 // 竖屏时占据90%宽度
+                      : maxWidth * 0.7; // 横屏时占据70%宽度
 
                   return SingleChildScrollView(
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 16, vertical: 8),
                       child: Container(
                         width: containerWidth,
                         decoration: BoxDecoration(
@@ -105,8 +108,12 @@ Widget _buildDetailContent(_dataList) {
       child: Container(
 // color: const Color.fromARGB(255, 179, 237, 201),
         decoration: BoxDecoration(
+          border: Border.all(
+            color: Colors.black,
+            width: 2,
+          ),
           borderRadius: BorderRadius.circular(20),
-          color: const Color.fromARGB(255, 221, 179, 255),
+          // color: const Color.fromARGB(255, 221, 179, 255),
         ),
         child: Column(
           children: [
@@ -117,7 +124,7 @@ Widget _buildDetailContent(_dataList) {
                 child: SizedBox(
 // width: double.infinity,
                   child: Text(
-                    _dataList?['name']??'',
+                    _dataList?['name'] ?? '',
                     style: const TextStyle(
                         fontSize: 37, fontWeight: FontWeight.bold),
                     maxLines: 1,
@@ -131,9 +138,10 @@ Widget _buildDetailContent(_dataList) {
             Padding(
                 padding: const EdgeInsets.all(10),
                 child: SizedBox(
-                  child: Text(_dataList?['time'] != null
-                      ?
-                  "距离${_dataList?['name']}${compareDates(_dataList?['time'])}":"",
+                  child: Text(
+                    _dataList?['time'] != null
+                        ? "距离${_dataList?['name']}${compareDates(_dataList?['time'])}"
+                        : "",
                     style: const TextStyle(
                       fontSize: 20,
                       color: Color.fromARGB(233, 84, 151, 243),
