@@ -46,7 +46,14 @@ dependencies:
   sqflite_common_ffi: ^2.3.4+3
   provider: ^6.1.2
   lunar: ^1.7.1
+  intl: ^0.19.0
+  flutter_lunar_datetime_picker: ^1.0.6
+#  富文本插件
   flutter_quill: ^10.8.5
+#  quill_native_bridge: ^10.7.11
+#  flutter_keyboard_visibility_temp_fork: ^0.1.4
+#  flutter_quill_extensions: ^10.8.5
+
 
 dev_dependencies:
   flutter_test:

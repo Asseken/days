@@ -25,7 +25,7 @@ class _addnotepageState extends State<addnotepage> {
   String time = "";
   String tag = "生活";
   String content = "";
-  late QuillEditorComponent _quillEditor;
+  // late QuillEditorComponent _quillEditor;
   void _SaveNote() async {
     // 获取富文本编辑器的内容
     content = jsonEncode(_controller.document.toDelta().toJson());
@@ -71,11 +71,11 @@ class _addnotepageState extends State<addnotepage> {
     // 设置当前时间
     time = DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now());
     // Initialize QuillEditorComponent
-    _quillEditor = QuillEditorComponent(
-      onStyleApplied: (quill.Attribute attribute) {
-        // Optional: Add any additional logic when a style is applied
-      },
-    );
+    // _quillEditor = QuillEditorComponent(
+    //   onStyleApplied: (quill.Attribute attribute) {
+    //     // Optional: Add any additional logic when a style is applied
+    //   },
+    // );
   }
 
 // 添加新标签的方法
