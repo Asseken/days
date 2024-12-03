@@ -1,6 +1,7 @@
 import 'package:days/pages/add.dart';
 import 'package:days/pages/addnote.dart';
 import 'package:days/pages/common.dart';
+import 'package:days/pages/commonnote.dart';
 import 'package:flutter/material.dart';
 
 Widget flbutton(context, Function loadData) {
@@ -31,7 +32,7 @@ Widget AddNote(context, Function ref) {
   return FloatingActionButton(
     onPressed: () async {
       final result = await Navigator.push(context,
-          MaterialPageRoute(builder: (context) => const addnotepage()));
+          MaterialPageRoute(builder: (context) => const AddNotePage()));
       if (result == true) {
         ref();
       }

@@ -1,92 +1,43 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_lunar_datetime_picker/date_init.dart';
-import 'package:flutter_quill/flutter_quill.dart';
+import 'package:flutter_lunar_datetime_picker/flutter_lunar_datetime_picker.dart';
 import 'package:flutter_quill/flutter_quill.dart' as quill;
-import '../Flutter_Quill/quill.dart';
+import 'package:flutter_quill/flutter_quill.dart';
+import 'package:intl/intl.dart';
 import '../sql/sql_c.dart';
 import '../widget/Dialog.dart';
-import '../widget/FlButton.dart';
-import 'package:intl/intl.dart';
-import 'package:flutter_lunar_datetime_picker/flutter_lunar_datetime_picker.dart';
 
-class addnotepage extends StatefulWidget {
-  final int? id;
-  const addnotepage({super.key, this.id});
+class AddNotePage extends StatefulWidget {
+  final int? id; // 可选的 ID 参数
+  const AddNotePage({Key? key, this.id}) : super(key: key);
 
   @override
-  State<addnotepage> createState() => _addnotepageState();
+  State<AddNotePage> createState() => _AddNotePageState();
 }
 
-class _addnotepageState extends State<addnotepage> {
+class _AddNotePageState extends State<AddNotePage> {
   final sqlite dbHelper = sqlite();
-  String titel = "";
-  String subtitel = "";
+  String title = "";
+  String subtitle = "";
   String time = "";
   String tag = "生活";
   String content = "";
-  late QuillEditorComponent _quillEditor;
-  void _SaveNote() async {
-    // 获取富文本编辑器的内容
-    content = jsonEncode(_controller.document.toDelta().toJson());
-    // 保存
-    if (titel.isEmpty || content.isEmpty) {
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("请填写完整信息！")),
-      );
-      return;
-    }
-// 准备数据
-    Map<String, dynamic> noteData = {
-      'title': titel,
-      'subtitle': subtitel,
-      'time': time,
-      'Tag': tag,
-      'description': content,
-      'value': 0 // 可以根据需要设置值
-    };
-
-    try {
-      // 插入数据到数据库
-      await dbHelper.insertData2(noteData);
-
-      // 提示保存成功
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("备忘录保存成功！")),
-      );
-      Navigator.pop(context, true);
-      // 可以选择返回上一页
-      // Navigator.pop(context);
-    } catch (e) {
-      // 处理可能的错误
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("保存失败：$e")),
-      );
-    }
-  }
+  late quill.QuillController _controller;
 
   @override
   void initState() {
     super.initState();
-    // 设置当前时间
     time = DateFormat('yyyy-MM-dd HH:mm').format(DateTime.now());
-    // Initialize QuillEditorComponent
-    _quillEditor = QuillEditorComponent(
-      onStyleApplied: (quill.Attribute attribute) {
-        // Optional: Add any additional logic when a style is applied
-      },
-    );
+    _controller = quill.QuillController.basic();
+
+    // 判断是否传入了 id
+    if (widget.id != null) {
+      _loadNoteData(widget.id!);
+    }
   }
 
-// 添加新标签的方法
-  void _addNewTag(String newTag) {
-    setState(() {
-      // 将新标签设置为当前选中的标签
-      tag = newTag;
-    });
-  }
-
-  final QuillController _controller = QuillController.basic();
+  // final QuillController _controller = QuillController.basic();
   void QrStyle(quill.Attribute attribute) {
     final currentSelection = _controller.getSelectionStyle();
     if (currentSelection.attributes.containsKey(attribute.key)) {
@@ -98,6 +49,81 @@ class _addnotepageState extends State<addnotepage> {
     }
   }
 
+  void _loadNoteData(int id) async {
+    try {
+      final noteData = await dbHelper.getOneData2(widget.id!);
+      setState(() {
+        title = noteData['title'] ?? '';
+        subtitle = noteData['subtitle'] ?? '';
+        time = noteData['time'] ?? time;
+        tag = noteData['Tag'] ?? '生活';
+
+        final description = noteData['description'];
+        if (description != null) {
+          final decodedContent = jsonDecode(description);
+          _controller = quill.QuillController(
+            document: quill.Document.fromJson(decodedContent),
+            selection: const TextSelection.collapsed(offset: 0),
+          );
+        }
+      });
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("加载失败：$e")),
+      );
+    }
+  }
+
+  void _saveNote() async {
+    content = jsonEncode(_controller.document.toDelta().toJson());
+
+    if (title.isEmpty || content.isEmpty) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text("请填写完整信息！")),
+      );
+      return;
+    }
+
+    final noteData = {
+      'title': title,
+      'subtitle': subtitle,
+      'time': time,
+      'Tag': tag,
+      'description': content,
+    };
+
+    try {
+      if (widget.id == null) {
+        // 新建模式
+        await dbHelper.insertData2(noteData);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("备忘录保存成功！")),
+        );
+      } else {
+        // 编辑模式
+        noteData['id'] = widget.id.toString();
+        await dbHelper.updateData2(noteData);
+        ScaffoldMessenger.of(context).showSnackBar(
+          const SnackBar(content: Text("备忘录更新成功！")),
+        );
+      }
+      Navigator.pop(context, true);
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("保存失败：$e")),
+      );
+      print('保存失败：$e');
+    }
+  }
+
+// 添加新标签的方法
+  void _addNewTag(String newTag) {
+    setState(() {
+      // 将新标签设置为当前选中的标签
+      tag = newTag;
+    });
+  }
+
   // 修改时间选择的方法
   void _selectDateTime() async {
     DateTime? pickedDateTime = await DatePicker.showDatePicker(
@@ -105,8 +131,8 @@ class _addnotepageState extends State<addnotepage> {
       lunarPicker: false,
       dateInitTime: DateInitTime(
           currentTime: DateTime.now(),
-          maxTime: DateTime(2026, 12, 12),
-          minTime: DateTime(2018, 3, 4)),
+          maxTime: DateTime(2099, 12, 30),
+          minTime: DateTime(1809, 1, 1)),
     );
 
     if (pickedDateTime != null) {
@@ -126,48 +152,41 @@ class _addnotepageState extends State<addnotepage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("新建备忘录"),
+        title: Text(widget.id == null ? "新建备忘录" : "编辑备忘录"),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
-            onPressed: () => _SaveNote(),
+            onPressed: _saveNote,
           ),
         ],
       ),
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.all(5),
+          padding: const EdgeInsets.all(8.0),
           child: Column(
             children: [
               TextField(
+                controller: TextEditingController(text: title),
                 decoration: const InputDecoration(
-                  hintText: "请输入标题",
                   labelText: "标题",
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
+                  border: UnderlineInputBorder(),
                 ),
                 onChanged: (value) {
-                  titel = value;
+                  title = value;
                 },
               ),
-              const SizedBox(height: 8), // 间隔(10像素
+              const SizedBox(height: 8),
               TextField(
+                controller: TextEditingController(text: subtitle),
                 decoration: const InputDecoration(
-                  hintText: "请输入副内容",
                   labelText: "副标题",
-                  border: OutlineInputBorder(borderSide: BorderSide.none),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(),
-                  ),
+                  border: UnderlineInputBorder(),
                 ),
                 onChanged: (value) {
-                  subtitel = value;
+                  subtitle = value;
                 },
               ),
-              const SizedBox(height: 4), // 间隔(10像素
-              // Divider(),
+              const SizedBox(height: 8),
               SizedBox(
                 height: 48,
                 child: Row(
@@ -280,8 +299,14 @@ class _addnotepageState extends State<addnotepage> {
           ),
         ),
       ),
-      //获取输入的内容
-      floatingActionButton: SaveNote(context, _SaveNote),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          // Add your onPressed code here!
+          _saveNote();
+        },
+        // backgroundColor: Colors.green,
+        child: const Icon(Icons.save),
+      ),
     );
   }
 

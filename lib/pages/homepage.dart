@@ -15,8 +15,8 @@ class Homepage extends StatefulWidget {
 class _HomepageState extends State<Homepage> {
   int _selectedindex = 0;
   final List<Widget> _listpage = [
-    const firstpage(),
-    const everyday(),
+    const FirstPage(),
+    const AllNoteDisplay(),
     const Setting(),
   ];
   void _topp(int index) {

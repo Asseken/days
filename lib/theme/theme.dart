@@ -7,21 +7,21 @@ class AppTheme {
   static ThemeData lightTheme = ThemeData(
     // 主要颜色配置
     primaryColor: Colors.blue,
-    scaffoldBackgroundColor: const Color.fromARGB(255, 245, 237, 246),
+    // scaffoldBackgroundColor: const Color.fromARGB(255, 245, 237, 246),
     // 颜色方案配置（用于按钮、AppBar等）
-    colorScheme: ColorScheme.light(
-      primary: const Color.fromARGB(255, 208, 188, 242),
-      secondary: const Color.fromARGB(255, 228, 188, 228),
+    colorScheme: const ColorScheme.light(
+      primary: Color.fromARGB(255, 208, 188, 242),
+      secondary: Color.fromARGB(255, 228, 188, 228),
       surface: Colors.white,
-      background: Colors.grey[100]!,
+      // background: Colors.grey[100]!,
       error: Colors.red,
     ),
 
     // 应用程序栏主题
     appBarTheme: const AppBarTheme(
-      color: Color.fromARGB(255, 221, 179, 255),
+      color: Colors.white60,
       elevation: 0,
-      iconTheme: IconThemeData(color: Colors.white),
+      iconTheme: IconThemeData(color: Colors.black),
     ),
 
     // 文本主题
@@ -60,7 +60,7 @@ class AppTheme {
     ),
     //card theme
     cardTheme: CardTheme(
-      color: const Color.fromARGB(255, 221, 179, 255),
+      color: Colors.white,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -68,12 +68,12 @@ class AppTheme {
     //底部状态栏
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       backgroundColor: Color.fromARGB(255, 253, 252, 255),
-      selectedItemColor: Color.fromARGB(255, 221, 179, 255),
+      selectedItemColor: Colors.black,
       unselectedItemColor: Color.fromARGB(255, 193, 192, 192),
     ),
     //FloatingActionButton配置
     floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Color.fromARGB(255, 221, 179, 255),
+      // backgroundColor: Color.fromARGB(255, 221, 179, 255),
       foregroundColor: Colors.white,
     ),
   );
@@ -143,9 +143,13 @@ class AppTheme {
     ),
     //底部状态栏
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color.fromARGB(255, 221, 179, 255),
-      selectedItemColor: Colors.deepPurple,
-      unselectedItemColor: Colors.white,
+      backgroundColor: Colors.deepPurple,
+      selectedItemColor: Colors.white,
+      unselectedItemColor: Colors.white70,
+    ),
+    floatingActionButtonTheme: const FloatingActionButtonThemeData(
+      backgroundColor: Colors.deepPurple,
+      foregroundColor: Colors.white,
     ),
   );
 }
@@ -201,7 +205,7 @@ class ThemeProvider extends ChangeNotifier {
     } catch (e) {
       // 如果没有存储的主题，保持默认系统主题
       _themeMode = ThemeMode.system;
-      print('加载主题失败: $e');
+      // print('加载主题失败: $e');
     }
   }
 
