@@ -54,7 +54,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
           } else if (constraints.maxWidth > 400) {
             crossAxisCount = 2;
           } else {
-            crossAxisCount = 1;
+            crossAxisCount = 2;
           }
           return GridView.builder(
             padding: const EdgeInsets.all(8),
