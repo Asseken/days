@@ -92,7 +92,7 @@ class _ShowNotePageState extends State<ShowNotePage> {
             ),
             Text(
               _NoteataList?['subtitle'] ?? '',
-              style: TextStyle(fontSize: 20),
+              style: const TextStyle(fontSize: 20),
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
