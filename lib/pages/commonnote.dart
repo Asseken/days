@@ -130,9 +130,10 @@ class _AddNotePageState extends State<AddNotePage> {
       context,
       lunarPicker: false,
       dateInitTime: DateInitTime(
-          currentTime: DateTime.now(),
-          maxTime: DateTime(2099, 12, 30),
-          minTime: DateTime(1809, 1, 1)),
+        currentTime: DateTime.now(),
+        maxTime: DateTime(2099, 12, 30),
+        minTime: DateTime(1809, 1, 1),
+      ),
     );
 
     if (pickedDateTime != null) {
