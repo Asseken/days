@@ -23,18 +23,22 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
   @override
   void initState() {
     super.initState();
-    _loadData();
-    _loadUserPreferences(); // 加载用户偏好设置
+    // _loadData();
+    // _loadUserPreferences(); // 加载用户偏好设置
+    // 先加载用户偏好设置，然后再加载数据
+    _loadUserPreferences().then((_) {
+      _loadData();
+    });
   }
 
-  // 加载用户偏好设置
+//  加载用户偏好设置
   Future<void> _loadUserPreferences() async {
     try {
       // 读取紧凑模式设置
-      _isCompactMode = await Storage.getData('compactMode') ?? false;
+      _isCompactMode = await StorageForBool.getData('compactMode') ?? false;
 
       // 读取排序方式设置
-      _isAscendingOrder = await Storage.getData('sortOrder') ?? false;
+      _isAscendingOrder = await StorageForBool.getData('sortOrder') ?? false;
     } catch (e) {
       // 如果读取失败，使用默认值
       _isCompactMode = false;
@@ -59,7 +63,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
       _isCompactMode = !_isCompactMode;
     });
     // 保存用户设置
-    Storage.setData('compactMode', _isCompactMode);
+    StorageForBool.setData('compactMode', _isCompactMode);
   }
 
   // 切换排序方式
@@ -71,7 +75,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
           : _dataList.reversed.toList();
     });
     // 保存用户设置
-    Storage.setData('sortOrder', _isAscendingOrder);
+    StorageForBool.setData('sortOrder', _isAscendingOrder);
   }
 
 // 修改后的编辑按钮点击事件
