@@ -160,7 +160,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
             } else if (constraints.maxWidth > 400) {
               crossAxisCount = 3;
             } else {
-              crossAxisCount = 2;
+              crossAxisCount = 3;
             }
           } else {
             // 宽松模式
