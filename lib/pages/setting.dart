@@ -64,7 +64,7 @@ class _SettingState extends State<Setting> {
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () async {
               //打开浏览器
-              const url = 'https://github.com/Asseken/days-test';
+              const url = 'https://github.com/Asseken/days';
               if (await canLaunch(url)) {
                 await launch(url);
               } else {
@@ -73,6 +73,16 @@ class _SettingState extends State<Setting> {
             },
           ),
           const Divider(),
+          const Center(
+            child: Text(
+              "ZJL & ZDM 2024",
+              style: TextStyle(
+                  fontSize: 15,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline),
+            ),
+          ),
         ],
       ),
     );

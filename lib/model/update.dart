@@ -14,7 +14,7 @@ class Getpackgeinfo {
   //从GitHub中获取更新的软件
   static Future<void> githubrelease(BuildContext context) async {
     //获取GitHub的API 判断是否有新的版本，判断version是否大于github的tag_name有则下载。
-    var url = "https://api.github.com/repos/Asseken/days-test/releases/latest";
+    var url = "https://api.github.com/repos/Asseken/days/releases/latest";
     var response = await Dio().get(url);
     var data = response.data;
     var version = data["tag_name"];
@@ -210,6 +210,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
       });
     });
   }
+
   Future<String> _getSavePath() async {
     Directory directory;
 
@@ -227,6 +228,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
     String appName = "test.apk";
     return "$localPath/$appName";
   }
+
   Future<void> _showCompletionDialog(
       BuildContext context, String filePath) async {
     showDialog(

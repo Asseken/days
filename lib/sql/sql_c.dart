@@ -45,6 +45,8 @@ class sqlite {
         time TEXT,
         description TEXT,
         Typedes TEXT,
+        StopTime TEXT,
+        StopCs INTEGER DEFAULT 0,
         value INTEGER
       )
     ''');

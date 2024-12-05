@@ -117,7 +117,8 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                     title: Text(_isCompactMode ? '宽松模式' : '紧凑模式'),
                     onTap: () {
                       setState(() {
-                        _isCompactMode = !_isCompactMode;
+                        // _isCompactMode = !_isCompactMode;
+                        _toggleCompactMode();
                       });
                       Navigator.pop(context);
                     },
@@ -136,6 +137,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                         Navigator.pop(context);
                       }),
                 ),
+                //按时间排序，根据item['time'] 排序
               ];
             },
           ),
@@ -147,7 +149,19 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
           int crossAxisCount;
           if (_isCompactMode) {
             // 紧凑模式
-            crossAxisCount = constraints.maxWidth > 400 ? 3 : 2;
+            // crossAxisCount = constraints.maxWidth > 400 ? 3 : 2;
+            //满足不同的宽度，显示不同的列数
+            if (constraints.maxWidth > 1800) {
+              crossAxisCount = 7;
+            } else if (constraints.maxWidth > 1200) {
+              crossAxisCount = 5;
+            } else if (constraints.maxWidth > 800) {
+              crossAxisCount = 4;
+            } else if (constraints.maxWidth > 400) {
+              crossAxisCount = 3;
+            } else {
+              crossAxisCount = 2;
+            }
           } else {
             // 宽松模式
             if (constraints.maxWidth > 1800) {
