@@ -268,7 +268,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                             // if (item['Tag'] != null && item['Tag'].isNotEmpty)
                             Container(
                               padding: const EdgeInsets.symmetric(
-                                  horizontal: 6, vertical: 2),
+                                  horizontal: 5, vertical: 2),
                               decoration: BoxDecoration(
                                 color: Colors.blue.shade100,
                                 borderRadius: BorderRadius.circular(12),

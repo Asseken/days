@@ -286,6 +286,16 @@ class _AddNotePageState extends State<AddNotePage> {
                       icon: const Icon(Icons.superscript),
                       onPressed: () => QrStyle(quill.Attribute.superscript),
                     ),
+                    //small
+                    IconButton(
+                      icon: const Icon(Icons.text_fields),
+                      onPressed: () => QrStyle(quill.Attribute.small),
+                    ),
+                    //blockQuote
+                    IconButton(
+                      icon: const Icon(Icons.format_quote),
+                      onPressed: () => QrStyle(quill.Attribute.blockQuote),
+                    ),
                   ],
                 ),
               ),

@@ -1,12 +1,14 @@
 import 'package:path_provider/path_provider.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:path/path.dart' as path;
 import 'dart:io';
 
 class sqlite {
   final sqlfile = 'appdata.db';
   final table = 'cuntday';
   final table2 = 'Note';
+  final windowsSrc = 'bin/db';
   Future<void> initializeDatabase() async {
     if (!Platform.isAndroid) {
       // 初始化 FFI
@@ -23,16 +25,24 @@ class sqlite {
     if (Platform.isAndroid) {
       final directory = await getExternalStorageDirectory();
       localPath = directory!.path;
-      var databasesPath = await localPath;
-      String path = databasesPath + "/" + sqlfile;
+      var databasesPath = localPath;
+      String path = "$databasesPath/$sqlfile";
       var db = await openDatabase(path, version: 1, onCreate: _onCreate);
       return db;
     } else {
-      final directory = await getApplicationDocumentsDirectory();
-      localPath = directory.path;
-      var databasesPath = await localPath;
-      String path = databasesPath + "/" + sqlfile;
-      var db = await openDatabase(path, version: 1, onCreate: _onCreate);
+      // final directory = await getApplicationDocumentsDirectory();
+      // localPath = directory.path;
+      // 获取当前可执行文件的目录
+      String executablePath = Platform.resolvedExecutable;
+      String executableDir = path.dirname(executablePath);
+
+      // 构建数据库路径
+      String databasePath = path.join(executableDir, windowsSrc, sqlfile);
+
+      // 确保目录存在
+      Directory(path.dirname(databasePath)).createSync(recursive: true);
+      var db =
+          await openDatabase(databasePath, version: 1, onCreate: _onCreate);
       return db;
     }
   }
