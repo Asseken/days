@@ -3,14 +3,14 @@ import 'dart:async';
 import 'package:days/pages/homepage.dart';
 import 'package:flutter/material.dart';
 
-class Startpage extends StatefulWidget {
-  const Startpage({super.key});
+class StartPage extends StatefulWidget {
+  const StartPage({super.key});
 
   @override
-  State<Startpage> createState() => _StartpageState();
+  State<StartPage> createState() => _StartPageState();
 }
 
-class _StartpageState extends State<Startpage> {
+class _StartPageState extends State<StartPage> {
   int _cuttime = 1;
   @override
   void initState() {

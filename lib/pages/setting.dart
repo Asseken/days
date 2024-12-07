@@ -35,9 +35,8 @@ class _SettingState extends State<Setting> {
               return ListTile(
                 title:
                     Text("主题模式 ${_getThemeModeText(themeProvider.themeMode)}"),
-                // subtitle: Text(_getThemeModeText(themeProvider.themeMode)),
                 trailing: IconButton(
-                  icon: const Icon(Icons.swap_horiz),
+                  icon: _getThemeModeIcon(themeProvider.themeMode),
                   onPressed: () {
                     themeProvider.toggleTheme();
                   },
@@ -99,16 +98,16 @@ class _SettingState extends State<Setting> {
         return '暗色模式';
     }
   }
+
+// 添加一个方法来返回对应的图标
+  Icon _getThemeModeIcon(ThemeMode themeMode) {
+    switch (themeMode) {
+      case ThemeMode.system:
+        return const Icon(Icons.settings_brightness);
+      case ThemeMode.light:
+        return const Icon(Icons.light_mode);
+      case ThemeMode.dark:
+        return const Icon(Icons.dark_mode);
+    }
+  }
 }
-// Consumer<ThemeProvider>(
-// builder: (context, themeProvider, child) {
-// return ListTile(
-// title: const Text("暗黑模式"),
-// trailing: Switch(
-// value: themeProvider.themeMode == ThemeMode.dark,
-// onChanged: (bool value) {
-// themeProvider.toggleTheme();
-// },
-// ),
-// );
-// },
