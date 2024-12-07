@@ -1,174 +1,77 @@
 import 'package:flutter/material.dart';
-
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import '../model/local_data.dart';
 
 class AppTheme {
-  /// 亮色主题配置
-  static ThemeData lightTheme = ThemeData(
-    // 主要颜色配置
-    primaryColor: Colors.blue,
-    // scaffoldBackgroundColor: const Color.fromARGB(255, 245, 237, 246),
-    // 颜色方案配置（用于按钮、AppBar等）
-    colorScheme: const ColorScheme.light(
-      primary: Color.fromARGB(255, 208, 188, 242),
-      secondary: Color.fromARGB(255, 228, 188, 228),
-      surface: Colors.white,
-      // background: Colors.grey[100]!,
-      error: Colors.red,
-    ),
+  /// 预定义的主题配色方案
+  static final List<FlexScheme> availableSchemes = [
+    FlexScheme.material,
+    FlexScheme.blue,
+    FlexScheme.indigo,
+    FlexScheme.aquaBlue,
+    FlexScheme.materialHc,
+    FlexScheme.sakura,
+    FlexScheme.money,
+    FlexScheme.deepBlue,
+    FlexScheme.brandBlue,
+    FlexScheme.red,
+    FlexScheme.redWine,
+    FlexScheme.purpleBrown,
 
-    // 应用程序栏主题
-    appBarTheme: const AppBarTheme(
-      color: Colors.white60,
-      elevation: 0,
-      iconTheme: IconThemeData(color: Colors.black),
-    ),
+  ];
 
-    // 文本主题
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(
-          fontSize: 24, fontWeight: FontWeight.bold, color: Colors.black87),
-      bodyLarge: TextStyle(fontSize: 16, color: Colors.black54),
-    ),
-
-    // 输入框主题
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
+  /// 生成亮色主题
+  static ThemeData getLightTheme(FlexScheme scheme) {
+    return FlexThemeData.light(
+      scheme: scheme,
+      surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+      blendLevel: 7,
+      subThemesData: const FlexSubThemesData(
+        blendTextTheme: true,
+        useTextTheme: true,
+        inputDecoratorRadius: 8.0,
+        inputDecoratorBorderType: FlexInputBorderType.outline,
+        elevatedButtonRadius: 8.0,
+        cardRadius: 10.0,
       ),
-    ),
+    );
+  }
 
-    // 按钮主题
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
+  /// 生成暗色主题
+  static ThemeData getDarkTheme(FlexScheme scheme) {
+    return FlexThemeData.dark(
+      scheme: scheme,
+      surfaceMode: FlexSurfaceMode.levelSurfacesLowScaffold,
+      blendLevel: 13,
+      subThemesData: const FlexSubThemesData(
+        blendTextTheme: true,
+        useTextTheme: true,
+        inputDecoratorRadius: 8.0,
+        inputDecoratorBorderType: FlexInputBorderType.outline,
+        elevatedButtonRadius: 8.0,
+        cardRadius: 10.0,
       ),
-    ),
-    //TEXT BUTTON
-    textButtonTheme: TextButtonThemeData(
-      style: TextButton.styleFrom(
-        backgroundColor: Colors.blue,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    ),
-    //card theme
-    cardTheme: CardTheme(
-      color: Colors.white,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-    //底部状态栏
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Color.fromARGB(255, 253, 252, 255),
-      selectedItemColor: Colors.black,
-      unselectedItemColor: Color.fromARGB(255, 193, 192, 192),
-    ),
-    //FloatingActionButton配置
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      // backgroundColor: Color.fromARGB(255, 221, 179, 255),
-      foregroundColor: Colors.white,
-    ),
-  );
-
-  /// 暗色主题配置
-  static ThemeData darkTheme = ThemeData(
-    // 主要颜色配置
-    primaryColor: Colors.deepPurple,
-
-    // 颜色方案配置（用于按钮、AppBar等）
-    colorScheme: ColorScheme.dark(
-      primary: Colors.deepPurple,
-      secondary: Colors.deepPurpleAccent,
-      surface: Colors.grey[900]!,
-      background: Colors.black,
-      error: Colors.redAccent,
-    ),
-
-    // 应用程序栏主题
-    appBarTheme: const AppBarTheme(
-      color: Colors.deepPurple,
-      elevation: 0,
-      iconTheme: IconThemeData(color: Colors.white),
-    ),
-
-    // 文本主题
-    textTheme: const TextTheme(
-      displayLarge: TextStyle(
-          fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
-      bodyLarge: TextStyle(fontSize: 16, color: Colors.white70),
-    ),
-
-    // 输入框主题
-    inputDecorationTheme: InputDecorationTheme(
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(8),
-        borderSide: const BorderSide(color: Colors.white30),
-      ),
-    ),
-
-    // 按钮主题
-    elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    ),
-    //TEXT BUTTON
-    textButtonTheme: TextButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: Colors.deepPurple,
-        foregroundColor: Colors.white,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(8),
-        ),
-      ),
-    ),
-    //card theme
-    cardTheme: CardTheme(
-      color: Colors.deepPurple,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-    ),
-    //底部状态栏
-    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      backgroundColor: Colors.deepPurple,
-      selectedItemColor: Colors.white,
-      unselectedItemColor: Colors.white70,
-    ),
-    floatingActionButtonTheme: const FloatingActionButtonThemeData(
-      backgroundColor: Colors.deepPurple,
-      foregroundColor: Colors.white,
-    ),
-  );
+    );
+  }
 }
 
 /// 主题切换提供者
 class ThemeProvider extends ChangeNotifier {
-  // ThemeMode _themeMode = ThemeMode.light;
-// 当前主题模式，默认为跟随系统
+  // 当前主题模式，默认为跟随系统
   ThemeMode _themeMode = ThemeMode.system;
+
+  // 当前选中的主题配色方案，默认为第一个
+  FlexScheme _currentScheme = AppTheme.availableSchemes.first;
+
   ThemeProvider() {
     _loadThemeFromStorage();
   }
 
   ThemeMode get themeMode => _themeMode;
+  FlexScheme get currentScheme => _currentScheme;
 
-  // bool get isDarkMode => _themeMode == ThemeMode.dark;
-
-  /// 切换主题
-  void toggleTheme() {
+  /// 切换主题模式
+  void toggleThemeMode() {
     switch (_themeMode) {
       case ThemeMode.system:
         _themeMode = ThemeMode.light;
@@ -182,34 +85,59 @@ class ThemeProvider extends ChangeNotifier {
     }
 
     _saveThemeToStorage();
-    notifyListeners(); // 重要：通知所有监听者
+    notifyListeners();
+  }
+
+  /// 切换主题配色方案
+  void changeColorScheme(FlexScheme scheme) {
+    _currentScheme = scheme;
+    _saveThemeToStorage();
+    notifyListeners();
   }
 
   /// 设置特定的主题模式
   void setThemeMode(ThemeMode mode) {
     _themeMode = mode;
-
-    // 保存主题状态到本地存储
     _saveThemeToStorage();
-
     notifyListeners();
   }
 
   Future<void> _loadThemeFromStorage() async {
     try {
       final storedTheme = await Storage.getData('app_theme');
+      final storedScheme = await Storage.getData('app_color_scheme');
+
       if (storedTheme != null) {
         _themeMode = ThemeMode.values[storedTheme];
-        notifyListeners();
       }
+
+      if (storedScheme != null) {
+        _currentScheme = AppTheme.availableSchemes[storedScheme];
+      }
+
+      notifyListeners();
     } catch (e) {
-      // 如果没有存储的主题，保持默认系统主题
       _themeMode = ThemeMode.system;
-      // print('加载主题失败: $e');
+      _currentScheme = AppTheme.availableSchemes.first;
     }
   }
 
   void _saveThemeToStorage() {
     Storage.setData('app_theme', _themeMode.index);
+    Storage.setData('app_color_scheme', AppTheme.availableSchemes.indexOf(_currentScheme));
+  }
+
+  /// 获取当前主题
+  ThemeData getCurrentTheme() {
+    switch (_themeMode) {
+      case ThemeMode.light:
+        return AppTheme.getLightTheme(_currentScheme);
+      case ThemeMode.dark:
+        return AppTheme.getDarkTheme(_currentScheme);
+      case ThemeMode.system:
+        return WidgetsBinding.instance.window.platformBrightness == Brightness.dark
+            ? AppTheme.getDarkTheme(_currentScheme)
+            : AppTheme.getLightTheme(_currentScheme);
+    }
   }
 }

@@ -29,21 +29,11 @@ class MyApp extends StatelessWidget {
       builder: (context, themeProvider, child) {
         return MaterialApp(
           title: 'Days',
-          theme: AppTheme.lightTheme,
-          darkTheme: AppTheme.darkTheme,
+          theme: themeProvider.getCurrentTheme(),
           themeMode: themeProvider.themeMode,
           home: const StartPage(),
         );
       },
     );
-    // return MaterialApp(
-    //   title: 'Days',
-    //   theme: ThemeData(
-    //     colorScheme: ColorScheme.fromSeed(
-    //         seedColor: const Color.fromARGB(255, 208, 188, 242)),
-    //     useMaterial3: true,
-    //   ),
-    //   home: const Startpage(),
-    // );
   }
 }

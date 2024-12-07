@@ -1,4 +1,5 @@
 import 'package:days/model/update.dart';
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -38,9 +39,61 @@ class _SettingState extends State<Setting> {
                 trailing: IconButton(
                   icon: _getThemeModeIcon(themeProvider.themeMode),
                   onPressed: () {
-                    themeProvider.toggleTheme();
+                    // 切换主题模式
+                    themeProvider.toggleThemeMode();
                   },
                 ),
+              );
+            },
+          ),
+          // 主题颜色选择
+          Consumer<ThemeProvider>(
+            builder: (context, themeProvider, child) {
+              return ExpansionTile(
+                title: const Text("主题颜色"),
+                trailing: Icon(
+                  Icons.color_lens,
+                  color: Theme.of(context).primaryColor,
+                ),
+                children: [
+                  SizedBox(
+                    height: 200,
+                    child: GridView.builder(
+                      padding: const EdgeInsets.all(8),
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 4,
+                        childAspectRatio: 1,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                      ),
+                      itemCount: AppTheme.availableSchemes.length,
+                      itemBuilder: (context, index) {
+                        final scheme = AppTheme.availableSchemes[index];
+                        return GestureDetector(
+                          onTap: () => themeProvider.changeColorScheme(scheme),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: themeProvider.currentScheme == scheme
+                                  ? Theme.of(context)
+                                      .primaryColor
+                                      .withOpacity(0.3)
+                                  : null,
+                              border: Border.all(
+                                color: themeProvider.currentScheme == scheme
+                                    ? Theme.of(context).primaryColor
+                                    : Colors.transparent,
+                                width: 2,
+                              ),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            child: ColorSchemePreview(scheme: scheme),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
               );
             },
           ),
@@ -109,5 +162,64 @@ class _SettingState extends State<Setting> {
       case ThemeMode.dark:
         return const Icon(Icons.dark_mode);
     }
+  }
+}
+
+/// 颜色方案预览小组件
+class ColorSchemePreview extends StatelessWidget {
+  final FlexScheme scheme;
+
+  const ColorSchemePreview({super.key, required this.scheme});
+
+  @override
+  Widget build(BuildContext context) {
+    final lightColors = FlexThemeData.light(scheme: scheme).colorScheme;
+    final darkColors = FlexThemeData.dark(scheme: scheme).colorScheme;
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final size = constraints.maxWidth;
+        return Stack(
+          children: [
+            Positioned(
+              top: 0,
+              left: 0,
+              child: Container(
+                width: size / 2,
+                height: size / 2,
+                color: lightColors.primary,
+              ),
+            ),
+            Positioned(
+              top: 0,
+              right: 0,
+              child: Container(
+                width: size / 2,
+                height: size / 2,
+                color: lightColors.secondary,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              left: 0,
+              child: Container(
+                width: size / 2,
+                height: size / 2,
+                color: darkColors.primary,
+              ),
+            ),
+            Positioned(
+              bottom: 0,
+              right: 0,
+              child: Container(
+                width: size / 2,
+                height: size / 2,
+                color: darkColors.secondary,
+              ),
+            ),
+          ],
+        );
+      },
+    );
   }
 }
