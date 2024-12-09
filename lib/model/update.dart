@@ -1,3 +1,4 @@
+import 'package:days/widget/Dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 import 'package:path_provider/path_provider.dart';
@@ -24,7 +25,8 @@ class Getpackgeinfo {
       //下载新的版本
       // _downLoad();
       // getPackageInfo();
-      dialog(context, value: version, la: latestReleasesNnotes);
+      ShowUpdateDialog.showUpdateDialog(context, _showDownloadProgress,
+          value: version, la: latestReleasesNnotes);
       // print("本地版本:$appversion,远端版本:$version");
     } else {
       // print("已经是最新版本");
@@ -44,34 +46,6 @@ class Getpackgeinfo {
     print("tempPath:$tempPath");
     print("appDocDir:$appDocPath");
     print("StorageDirectory:$storageDirectory");
-  }
-
-  static Future<void> dialog(BuildContext context,
-      {required String value, required String la}) async {
-    await showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("更新APP提示!"),
-            content: Text("发现新的版本 $value \n新版本${la} \n是否更新到$value版本！"),
-            actions: <Widget>[
-              ElevatedButton(
-                child: const Text("否"),
-                onPressed: () {
-                  Navigator.pop(context, 'Cancle');
-                },
-              ),
-              ElevatedButton(
-                child: const Text("是"),
-                onPressed: () {
-                  Navigator.pop(context, 'Ok');
-                  // _downLoad(value);
-                  _showDownloadProgress(context, value);
-                },
-              )
-            ],
-          );
-        });
   }
 
   static Future<void> _showDownloadProgress(
@@ -202,7 +176,8 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
       Navigator.pop(context); // 关闭下载进度弹窗
 
       // 显示下载完成提示
-      _showCompletionDialog(context, savePath);
+      // _showCompletionDialog(context, savePath);
+      UpdateComCompletionDialog.UpdateComp(savePath, context);
       // OpenFilex.open(savePath, type: "application/vnd.android.package-archive");
     }).catchError((error) {
       setState(() {
@@ -227,34 +202,6 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
     String localPath = directory.path;
     String appName = "test.apk";
     return "$localPath/$appName";
-  }
-
-  Future<void> _showCompletionDialog(
-      BuildContext context, String filePath) async {
-    showDialog(
-        context: context,
-        builder: (context) {
-          return AlertDialog(
-            title: const Text("下载完成"),
-            content: const Text("文件已成功下载，是否立即打开？"),
-            actions: [
-              TextButton(
-                child: const Text("稍后"),
-                onPressed: () {
-                  Navigator.pop(context);
-                },
-              ),
-              TextButton(
-                child: const Text("打开"),
-                onPressed: () async {
-                  Navigator.pop(context);
-                  await OpenFilex.open(filePath,
-                      type: "application/vnd.android.package-archive");
-                },
-              ),
-            ],
-          );
-        });
   }
 
   String _formatSize(double sizeInKB) {
