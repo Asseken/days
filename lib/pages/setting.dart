@@ -46,6 +46,7 @@ class _SettingState extends State<Setting> {
               );
             },
           ),
+          const Divider(),
           // 主题颜色选择
           Consumer<ThemeProvider>(
             builder: (context, themeProvider, child) {
