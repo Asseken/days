@@ -198,11 +198,12 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                             },
                           )),
                 ),
-                onLongPress: () => DeleteNote.showDeleteNoteDialog(
+                onLongPress: () => DeleteEditNote.showDeleteNoteDialog(
                   context,
                   item['id'],
                   dbHelper,
                   _loadData,
+                  _onEdit,
                 ),
                 child: Container(
                   decoration: BoxDecoration(
