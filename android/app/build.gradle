@@ -44,7 +44,7 @@ android {
         versionCode = flutterVersionCode.toInteger()
         versionName = flutterVersionName
 //        ndk {
-//            abiFilters "arm64-v8a","x86_64" // 只编译 64 位 arm 架构 后续增加 x86，x86_64，armeabi-v7a，armeabi，
+//            abiFilters "arm64-v8a"//"x86_64" // 只编译 64 位 arm 架构 后续增加 x86，x86_64，armeabi-v7a，armeabi，
 //        }
     }
     signingConfigs {
