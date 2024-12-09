@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 
 import '../pages/common.dart';
+import '../pages/commonnote.dart';
 import '../pages/edit.dart';
 
 class DeleteEditAll {
@@ -52,7 +53,11 @@ class DeleteEditAll {
   }
 
   static Future<void> _deleteData(
-      BuildContext context, int id, sqlite dbHelper, Function onDelete) async {
+    BuildContext context,
+    int id,
+    sqlite dbHelper,
+    Function onDelete,
+  ) async {
     await dbHelper.deleteData(id);
     onDelete(); // 调用外部传入的回调函数刷新数据
     ScaffoldMessenger.of(context).showSnackBar(
@@ -96,9 +101,9 @@ class AddNoteTag {
   }
 }
 
-class DeleteNote {
-  static void showDeleteNoteDialog(
-      BuildContext context, int id, sqlite dbHelper, Function onDelete) {
+class DeleteEditNote {
+  static void showDeleteNoteDialog(BuildContext context, int id,
+      sqlite dbHelper, Function onDelete, Function Loaddata) {
     showDialog(
       context: context,
       builder: (context) {
@@ -107,15 +112,29 @@ class DeleteNote {
           content: const Text("此操作无法撤销！"),
           actions: [
             ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text("取消"),
-            ),
-            ElevatedButton(
               onPressed: () async {
                 Navigator.pop(context);
                 await _deleteData2(context, id, dbHelper, onDelete);
               },
-              child: const Text("确认"),
+              child: const Text("删除"),
+            ),
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context);
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => AddNotePage(id: id),
+                  ),
+                ).then((value) {
+                  Loaddata(); // 刷新数据
+                });
+              },
+              child: const Text("编辑"),
+            ),
+            ElevatedButton(
+              onPressed: () => Navigator.pop(context),
+              child: const Text("取消"),
             ),
           ],
         );
