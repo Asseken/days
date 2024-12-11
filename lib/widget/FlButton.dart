@@ -4,6 +4,8 @@ import 'package:days/pages/common.dart';
 import 'package:days/pages/commonnote.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
+
 Widget flbutton(context, Function loadData) {
   return SizedBox(
     width: 70,
@@ -17,12 +19,12 @@ Widget flbutton(context, Function loadData) {
             // Navigator.pop(context);
           }
         },
-        tooltip: '添加',
-        child: const Row(
+        tooltip: S.of(context).Add,
+        child: Row(
           children: [
-            SizedBox(width: 10), // 添加间距
-            Text("添加"),
-            Icon(Icons.add),
+            const SizedBox(width: 10), // 添加间距
+            Text(S.of(context).Add),
+            const Icon(Icons.add),
           ],
         )),
   );

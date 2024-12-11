@@ -37,3 +37,15 @@ class StorageForBool {
     return pref.remove(key);
   }
 }
+
+class StorageLa {
+  static Future<String?> getData(String key) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getString(key);
+  }
+
+  static Future<void> setData(String key, String value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString(key, value);
+  }
+}

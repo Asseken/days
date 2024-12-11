@@ -5,6 +5,7 @@ import 'package:flutter_lunar_datetime_picker/flutter_lunar_datetime_picker.dart
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:intl/intl.dart';
+import '../generated/l10n.dart';
 import '../sql/sql_c.dart';
 import '../widget/Dialog.dart';
 
@@ -153,7 +154,8 @@ class _AddNotePageState extends State<AddNotePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(widget.id == null ? "新建备忘录" : "编辑备忘录"),
+        title: Text(
+            widget.id == null ? S.of(context).NewMemo : S.of(context).EditMemo),
         actions: [
           IconButton(
             icon: const Icon(Icons.save),
@@ -168,9 +170,9 @@ class _AddNotePageState extends State<AddNotePage> {
             children: [
               TextField(
                 controller: TextEditingController(text: title),
-                decoration: const InputDecoration(
-                  labelText: "标题",
-                  border: UnderlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: S.of(context).NoteTitle,
+                  border: const UnderlineInputBorder(),
                 ),
                 onChanged: (value) {
                   title = value;
@@ -179,9 +181,9 @@ class _AddNotePageState extends State<AddNotePage> {
               const SizedBox(height: 8),
               TextField(
                 controller: TextEditingController(text: subtitle),
-                decoration: const InputDecoration(
-                  labelText: "副标题",
-                  border: UnderlineInputBorder(),
+                decoration: InputDecoration(
+                  labelText: S.of(context).NoteSubTitle,
+                  border: const UnderlineInputBorder(),
                 ),
                 onChanged: (value) {
                   subtitle = value;
@@ -193,7 +195,8 @@ class _AddNotePageState extends State<AddNotePage> {
                 child: Row(
                   children: [
                     const Icon(Icons.date_range, color: Colors.green, size: 40),
-                    const Text("时间:", style: TextStyle(fontSize: 28)),
+                    Text(S.of(context).Time,
+                        style: const TextStyle(fontSize: 28)),
                     GestureDetector(
                       onTap: _selectDateTime,
                       child: Padding(
@@ -211,11 +214,11 @@ class _AddNotePageState extends State<AddNotePage> {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Row(
+                  Row(
                     children: [
-                      Icon(Icons.tag, color: Colors.green, size: 40),
+                      const Icon(Icons.tag, color: Colors.green, size: 40),
                       Text(
-                        "标签",
+                        S.of(context).Label,
                         style: TextStyle(fontSize: 28),
                       ),
                     ],

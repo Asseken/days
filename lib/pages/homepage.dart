@@ -5,6 +5,7 @@ import 'package:days/pages/index.dart';
 import 'package:days/pages/setting.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import 'note.dart';
 
 class Homepage extends StatefulWidget {
@@ -68,18 +69,18 @@ class _HomepageState extends State<Homepage> {
                   onDestinationSelected: (index) => _topp(index),
                   labelType: NavigationRailLabelType.all, // 强制显示所有标签
                   // extended: true, // 扩展 NavigationRail 以显示完整标签
-                  destinations: const [
+                  destinations: [
                     NavigationRailDestination(
-                      icon: Icon(Icons.home),
-                      label: Text("首页"),
+                      icon: const Icon(Icons.home),
+                      label: Text(S.of(context).Home),
                     ),
                     NavigationRailDestination(
-                      icon: Icon(Icons.date_range_sharp),
-                      label: Text('事项'),
+                      icon: const Icon(Icons.date_range_sharp),
+                      label: Text(S.of(context).Note),
                     ),
                     NavigationRailDestination(
-                      icon: Icon(Icons.settings),
-                      label: Text('设置'),
+                      icon: const Icon(Icons.settings),
+                      label: Text(S.of(context).Setting),
                     ),
                   ],
                 ),
@@ -110,16 +111,17 @@ class _HomepageState extends State<Homepage> {
           ? null // Windows 平台不显示 BottomNavigationBar
           : BottomNavigationBar(
               // unselectedItemColor: Colors.grey,
-              items: const <BottomNavigationBarItem>[
+              items: <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.home),
-                  label: "首页",
+                  icon: const Icon(Icons.home),
+                  label: S.of(context).Home,
                 ),
                 BottomNavigationBarItem(
-                    icon: Icon(Icons.date_range_sharp), label: "事项"),
+                    icon: const Icon(Icons.date_range_sharp),
+                    label: S.of(context).Note),
                 BottomNavigationBarItem(
-                  icon: Icon(Icons.account_box),
-                  label: "设置",
+                  icon: const Icon(Icons.account_box),
+                  label: S.of(context).Setting,
                 ),
               ],
               currentIndex: _selectedindex,

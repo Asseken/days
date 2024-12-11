@@ -3,6 +3,7 @@ import 'package:days/sql/sql_c.dart';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
 
+import '../generated/l10n.dart';
 import '../pages/common.dart';
 import '../pages/commonnote.dart';
 import '../pages/edit.dart';
@@ -14,15 +15,15 @@ class DeleteEditAll {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("需要编辑还是删除？"),
-          content: const Text("此操作无法撤销！"),
+          title: Text(S.of(context).EditDelete),
+          content: Text(S.of(context).ThisUndone),
           actions: [
             ElevatedButton(
               onPressed: () async {
                 Navigator.pop(context);
                 await _deleteData(context, id, dbHelper, onDelete);
               },
-              child: const Text("删除"),
+              child: Text(S.of(context).Delete),
             ),
             ElevatedButton(
               onPressed: () {
@@ -38,13 +39,13 @@ class DeleteEditAll {
                   onEdit(); // 刷新数据
                 });
               },
-              child: const Text("编辑"),
+              child: Text(S.of(context).Edit),
             ),
             ElevatedButton(
               onPressed: () {
                 Navigator.pop(context);
               },
-              child: const Text("取消"),
+              child: Text(S.of(context).Cancel),
             ),
           ],
         );
@@ -61,7 +62,7 @@ class DeleteEditAll {
     await dbHelper.deleteData(id);
     onDelete(); // 调用外部传入的回调函数刷新数据
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("删除成功！")),
+       SnackBar(content: Text(S.of(context).DeF)),
     );
   }
 }
@@ -75,14 +76,14 @@ class AddNoteTag {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("添加标签"),
+          title:  Text(S.of(context).AddTag),
           content: TextField(
             controller: _tagController,
           ),
           actions: [
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("取消"),
+              child: Text(S.of(context).Cancel),
             ),
             ElevatedButton(
               onPressed: () async {
@@ -92,7 +93,7 @@ class AddNoteTag {
                   Navigator.pop(context);
                 }
               },
-              child: const Text("确认"),
+              child:  Text(S.of(context).Yes),
             ),
           ],
         );
@@ -108,15 +109,15 @@ class DeleteEditNote {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("确认删除？"),
-          content: const Text("此操作无法撤销！"),
+          title: Text(S.of(context).EditDelete),
+          content: Text(S.of(context).ThisUndone),
           actions: [
             ElevatedButton(
               onPressed: () async {
                 Navigator.pop(context);
                 await _deleteData2(context, id, dbHelper, onDelete);
               },
-              child: const Text("删除"),
+              child: Text(S.of(context).Delete),
             ),
             ElevatedButton(
               onPressed: () {
@@ -130,11 +131,11 @@ class DeleteEditNote {
                   Loaddata(); // 刷新数据
                 });
               },
-              child: const Text("编辑"),
+              child: Text(S.of(context).Edit),
             ),
             ElevatedButton(
               onPressed: () => Navigator.pop(context),
-              child: const Text("取消"),
+              child: Text(S.of(context).Cancel),
             ),
           ],
         );
@@ -147,7 +148,7 @@ class DeleteEditNote {
     await dbHelper.deleteData2(id);
     onDelete(); // 调用外部传入的回调函数刷新数据
     ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(content: Text("删除成功！")),
+       SnackBar(content: Text(S.of(context).DeF)),
     );
   }
 }
@@ -158,17 +159,17 @@ class UpdateComCompletionDialog {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title: const Text("下载完成"),
-          content: const Text("文件已成功下载，是否立即打开？"),
+          title:  Text(S.of(context).DownloadCompleted),
+          content:  Text(S.of(context).DownloadFinInfo),
           actions: [
             ElevatedButton(
-              child: const Text("稍后"),
+              child:  Text(S.of(context).Later),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             ElevatedButton(
-              child: const Text("打开"),
+              child:  Text(S.of(context).Open),
               onPressed: () async {
                 Navigator.pop(context);
                 await OpenFilex.open(filePath,
@@ -190,17 +191,17 @@ class ShowUpdateDialog {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title: const Text("更新APP提示!"),
+            title:  Text(S.of(context).UpdateAPP),
             content: Text("发现新的版本 $value \n新版本${la} \n是否更新到$value版本！"),
             actions: <Widget>[
               ElevatedButton(
-                child: const Text("否"),
+                child: Text(S.of(context).Cancel),
                 onPressed: () {
                   Navigator.pop(context, 'Cancle');
                 },
               ),
               ElevatedButton(
-                child: const Text("是"),
+                child: Text(S.of(context).Yes),
                 onPressed: () {
                   Navigator.pop(context, 'Ok');
                   // _downLoad(value);

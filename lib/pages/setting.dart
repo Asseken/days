@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../generated/l10n.dart';
+import '../model/LanguageProvider.dart';
 import '../theme/theme.dart';
 
 class Setting extends StatefulWidget {
@@ -18,8 +20,7 @@ class _SettingState extends State<Setting> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("设置"),
-        // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
+        title: Text(S.of(context).Setting),
       ),
       body: ListView(
         children: [
@@ -34,8 +35,8 @@ class _SettingState extends State<Setting> {
           Consumer<ThemeProvider>(
             builder: (context, themeProvider, child) {
               return ListTile(
-                title:
-                    Text("主题模式 ${_getThemeModeText(themeProvider.themeMode)}"),
+                title: Text(
+                    "${S.of(context).ThemeType} ${_getThemeModeText(themeProvider.themeMode)}"),
                 trailing: IconButton(
                   icon: _getThemeModeIcon(themeProvider.themeMode),
                   onPressed: () {
@@ -51,7 +52,7 @@ class _SettingState extends State<Setting> {
           Consumer<ThemeProvider>(
             builder: (context, themeProvider, child) {
               return ExpansionTile(
-                title: const Text("主题颜色"),
+                title: Text(S.of(context).ThemeColor),
                 trailing: Icon(
                   Icons.color_lens,
                   color: Theme.of(context).primaryColor,
@@ -99,13 +100,35 @@ class _SettingState extends State<Setting> {
             },
           ),
           const Divider(),
-          ListTile(
-              title: const Text("切换语言"),
-              trailing: const Icon(Icons.arrow_forward_ios),
-              onTap: () {}),
+          Consumer<LanguageProvider>(
+            builder: (context, languageProvider, child) {
+              return ListTile(
+                title: Text(
+                    "${S.of(context).language} ${languageProvider.locale.languageCode == 'zh' ? '中文' : 'English'}"),
+                trailing: DropdownButton<String>(
+                  value: languageProvider.locale.languageCode,
+                  items: const [
+                    DropdownMenuItem(
+                      value: 'zh',
+                      child: Text('中文'),
+                    ),
+                    DropdownMenuItem(
+                      value: 'en',
+                      child: Text('English'),
+                    ),
+                  ],
+                  onChanged: (String? newLanguageCode) {
+                    if (newLanguageCode != null) {
+                      languageProvider.changeLanguage(newLanguageCode);
+                    }
+                  },
+                ),
+              );
+            },
+          ),
           const Divider(),
           ListTile(
-            title: const Text("检查更新"),
+            title: Text(S.of(context).UpDate),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () {
               Getpackgeinfo.githubrelease(context);
@@ -113,7 +136,7 @@ class _SettingState extends State<Setting> {
           ),
           const Divider(),
           ListTile(
-            title: const Text("项目源码"),
+            title: Text(S.of(context).Code),
             trailing: const Icon(Icons.arrow_forward_ios),
             onTap: () async {
               //打开浏览器
@@ -145,11 +168,11 @@ class _SettingState extends State<Setting> {
   String _getThemeModeText(ThemeMode themeMode) {
     switch (themeMode) {
       case ThemeMode.system:
-        return '跟随系统';
+        return S.of(context).System;
       case ThemeMode.light:
-        return '亮色模式';
+        return S.of(context).Light;
       case ThemeMode.dark:
-        return '暗色模式';
+        return S.of(context).Dark;
     }
   }
 

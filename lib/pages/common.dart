@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:days/sql/sql_c.dart';
 import 'package:days/widget/dropdownmenu.dart';
 
+import '../generated/l10n.dart';
+
 class AddEditcommon extends StatefulWidget {
   final int? id; // Optional ID for editing an existing entry
 
@@ -127,7 +129,9 @@ class _AddEditcommonState extends State<AddEditcommon> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text(widget.id == null ? "添加倒数日" : "编辑倒数日"),
+          title: Text(widget.id == null
+              ? S.of(context).AddCountdownDay
+              : S.of(context).EditCountdownDay),
           // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
           actions: [
             IconButton(
@@ -208,7 +212,7 @@ class _AddEditcommonState extends State<AddEditcommon> {
                     width: MediaQuery.of(context).size.width * 0.9,
                     child: ElevatedButton(
                       onPressed: _saveData,
-                      child: const Text("保存"),
+                      child: Text(S.of(context).Save),
                     ),
                   ),
                 ],

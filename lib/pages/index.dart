@@ -4,6 +4,7 @@ import 'package:days/sql/sql_c.dart';
 import 'package:days/widget/FlButton.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../model/datejs.dart';
 import '../widget/Dialog.dart';
 import 'common.dart';
@@ -42,7 +43,7 @@ class _FirstPageState extends State<FirstPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("倒数日"),
+        title: Text(S.of(context).CountdownDay),
         // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
         actions: [
           IconButton(
