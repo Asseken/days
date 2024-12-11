@@ -6,6 +6,8 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:permission_handler/permission_handler.dart';
 
+import '../generated/l10n.dart';
+
 class Getpackgeinfo {
   static String appName = "";
   static String packageName = "";
@@ -170,7 +172,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
       }
     }).then((_) {
       setState(() {
-        status = "下载完成";
+        status = S.of(context).DownloadCompleted;
       });
       Navigator.pop(context); // 关闭下载进度弹窗
 
@@ -180,7 +182,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
       // OpenFilex.open(savePath, type: "application/vnd.android.package-archive");
     }).catchError((error) {
       setState(() {
-        status = "下载失败";
+        status = S.of(context).DownloadFailed;
       });
     });
   }
@@ -246,7 +248,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
       ),
       actions: [
         TextButton(
-          child: const Text("取消"),
+          child: Text(S.of(context).Cancel),
           onPressed: () {
             Navigator.pop(context);
           },

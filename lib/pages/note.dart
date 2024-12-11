@@ -3,6 +3,7 @@ import 'package:days/widget/Dialog.dart';
 import 'package:days/widget/FlButton.dart';
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
 import '../model/local_data.dart';
 import '../sql/sql_c.dart';
 import 'commonnote.dart';
@@ -19,6 +20,28 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
   List<Map<String, dynamic>> _dataList = [];
   bool _isCompactMode = false;
   bool _isAscendingOrder = false; // 新增排序状态
+  // 在 _AllNoteDisplayState 类中添加
+  List<Map<String, dynamic>> _filteredDataList = [];
+  TextEditingController _searchController = TextEditingController();
+  bool _isSearching = false;
+
+  void _filterNotes(String query) {
+    setState(() {
+      _filteredDataList = _dataList.where((item) {
+        // 在这里搜索 title, subtitle, Tag, description 等所有文本字段
+        return (item['title'] ?? '')
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            (item['subtitle'] ?? '')
+                .toLowerCase()
+                .contains(query.toLowerCase()) ||
+            (item['Tag'] ?? '').toLowerCase().contains(query.toLowerCase()) ||
+            (item['description'] ?? '')
+                .toLowerCase()
+                .contains(query.toLowerCase());
+      }).toList();
+    });
+  }
 
   @override
   void initState() {
@@ -87,12 +110,35 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("备忘录"),
+        title: _isSearching
+            ? TextField(
+                controller: _searchController,
+                decoration: InputDecoration(
+                  hintText: S.of(context).SearchNotes,
+                  border: InputBorder.none,
+                  suffixIcon: IconButton(
+                    icon: const Icon(Icons.close),
+                    onPressed: () {
+                      setState(() {
+                        _isSearching = false;
+                        _searchController.clear();
+                      });
+                    },
+                  ),
+                ),
+                autofocus: true,
+                onChanged: _filterNotes,
+              )
+            : Text(S.of(context).Memo),
         actions: [
           //搜素按钮
           IconButton(
             icon: const Icon(Icons.search),
-            onPressed: () {},
+            onPressed: () {
+              setState(() {
+                _isSearching = true;
+              });
+            },
           ),
           //添加
           IconButton(
@@ -114,7 +160,9 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                     leading: Icon(_isCompactMode
                         ? Icons.view_comfortable
                         : Icons.view_agenda),
-                    title: Text(_isCompactMode ? '宽松模式' : '紧凑模式'),
+                    title: Text(_isCompactMode
+                        ? S.of(context).LooseMode
+                        : S.of(context).CompactMode),
                     onTap: () {
                       setState(() {
                         // _isCompactMode = !_isCompactMode;
@@ -129,7 +177,9 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                       leading: Icon(_isAscendingOrder
                           ? Icons.arrow_upward
                           : Icons.arrow_downward),
-                      title: Text(_isAscendingOrder ? '正序' : '倒序'),
+                      title: Text(_isAscendingOrder
+                          ? S.of(context).NormalOrder
+                          : S.of(context).ReverseOrder),
                       onTap: () {
                         setState(() {
                           _toggleSortOrder();
@@ -176,17 +226,22 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
               crossAxisCount = 2;
             }
           }
+          // 使用 _filteredDataList 或 _dataList
+          final displayList = _isSearching ? _filteredDataList : _dataList;
           return GridView.builder(
-            padding: const EdgeInsets.all(8),
+            padding: const EdgeInsets.all(5),
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount, // 每行显示2个
               crossAxisSpacing: 10, // 网格之间的水平间距
               mainAxisSpacing: 10, // 网格之间的垂直间距
               childAspectRatio: 0.8, // 控制每个网格项的宽高比
             ),
-            itemCount: _dataList.length,
+            // itemCount: _dataList.length,
+            // itemBuilder: (context, index) {
+            //   final item = _dataList[index];
+            itemCount: displayList.length,
             itemBuilder: (context, index) {
-              final item = _dataList[index];
+              final item = displayList[index];
               return GestureDetector(
                 onTap: () => Navigator.push(
                   context,
@@ -219,7 +274,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(12.0),
+                    padding: const EdgeInsets.all(8),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
