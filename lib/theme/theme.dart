@@ -5,8 +5,8 @@ import '../model/local_data.dart';
 class AppTheme {
   /// 预定义的主题配色方案
   static final List<FlexScheme> availableSchemes = [
-    FlexScheme.material,
     FlexScheme.blue,
+    FlexScheme.material,
     FlexScheme.indigo,
     FlexScheme.aquaBlue,
     FlexScheme.materialHc,
@@ -17,7 +17,6 @@ class AppTheme {
     FlexScheme.red,
     FlexScheme.redWine,
     FlexScheme.purpleBrown,
-
   ];
 
   /// 生成亮色主题
@@ -124,7 +123,8 @@ class ThemeProvider extends ChangeNotifier {
 
   void _saveThemeToStorage() {
     Storage.setData('app_theme', _themeMode.index);
-    Storage.setData('app_color_scheme', AppTheme.availableSchemes.indexOf(_currentScheme));
+    Storage.setData(
+        'app_color_scheme', AppTheme.availableSchemes.indexOf(_currentScheme));
   }
 
   /// 获取当前主题
@@ -135,7 +135,8 @@ class ThemeProvider extends ChangeNotifier {
       case ThemeMode.dark:
         return AppTheme.getDarkTheme(_currentScheme);
       case ThemeMode.system:
-        return WidgetsBinding.instance.window.platformBrightness == Brightness.dark
+        return WidgetsBinding.instance.window.platformBrightness ==
+                Brightness.dark
             ? AppTheme.getDarkTheme(_currentScheme)
             : AppTheme.getLightTheme(_currentScheme);
     }
