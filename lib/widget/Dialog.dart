@@ -18,58 +18,52 @@ class DeleteEditAll {
           title: Text(S.of(context).EditDelete),
           content: Text(S.of(context).ThisUndone),
           actions: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    await _deleteData(context, id, dbHelper, onDelete);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        const Size.fromHeight(40), // Make button full width
-                  ),
-                  child: Text(S.of(context).Delete),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  Navigator.pop(context);
+                  await _deleteData(context, id, dbHelper, onDelete);
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize:
+                      const Size.fromHeight(40), // Make button full width
                 ),
+                child: Text(S.of(context).Delete),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddEditcommon(id: id),
-                      ),
-                    ).then((value) {
-                      onEdit(); // Refresh data
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        const Size.fromHeight(40), // Make button full width
-                  ),
-                  child: Text(S.of(context).Edit),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddEditcommon(id: id),
+                    ),
+                  ).then((value) {
+                    onEdit(); // Refresh data
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize:
+                      const Size.fromHeight(40), // Make button full width
                 ),
+                child: Text(S.of(context).Edit),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        const Size.fromHeight(40), // Make button full width
-                  ),
-                  child: Text(S.of(context).Cancel),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize:
+                      const Size.fromHeight(40), // Make button full width
                 ),
+                child: Text(S.of(context).Cancel),
               ),
             ),
           ],
@@ -137,56 +131,50 @@ class DeleteEditNote {
           title: Text(S.of(context).EditDelete),
           content: Text(S.of(context).ThisUndone),
           actions: [
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: ElevatedButton(
-                  onPressed: () async {
-                    Navigator.pop(context);
-                    await _deleteData2(context, id, dbHelper, onDelete);
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        const Size.fromHeight(40), // Make button full width
-                  ),
-                  child: Text(S.of(context).Delete),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ElevatedButton(
+                onPressed: () async {
+                  Navigator.pop(context);
+                  await _deleteData2(context, id, dbHelper, onDelete);
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize:
+                      const Size.fromHeight(40), // Make button full width
                 ),
+                child: Text(S.of(context).Delete),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: ElevatedButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => AddNotePage(id: id),
-                      ),
-                    ).then((value) {
-                      Loaddata(); // 刷新数据
-                    });
-                  },
-                  style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        const Size.fromHeight(40), // Make button full width
-                  ),
-                  child: Text(S.of(context).Edit),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => AddNotePage(id: id),
+                    ),
+                  ).then((value) {
+                    Loaddata(); // 刷新数据
+                  });
+                },
+                style: ElevatedButton.styleFrom(
+                  minimumSize:
+                      const Size.fromHeight(40), // Make button full width
                 ),
+                child: Text(S.of(context).Edit),
               ),
             ),
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4.0),
-                child: ElevatedButton(
-                  onPressed: () => Navigator.pop(context),
-                  style: ElevatedButton.styleFrom(
-                    minimumSize:
-                        const Size.fromHeight(40), // Make button full width
-                  ),
-                  child: Text(S.of(context).Cancel),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4.0),
+              child: ElevatedButton(
+                onPressed: () => Navigator.pop(context),
+                style: ElevatedButton.styleFrom(
+                  minimumSize:
+                      const Size.fromHeight(40), // Make button full width
                 ),
+                child: Text(S.of(context).Cancel),
               ),
             ),
           ],
