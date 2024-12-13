@@ -18,34 +18,59 @@ class DeleteEditAll {
           title: Text(S.of(context).EditDelete),
           content: Text(S.of(context).ThisUndone),
           actions: [
-            ElevatedButton(
-              onPressed: () async {
-                Navigator.pop(context);
-                await _deleteData(context, id, dbHelper, onDelete);
-              },
-              child: Text(S.of(context).Delete),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                // print("---------------$id");
-                // Navigator.push(context, MaterialPageRoute(builder: (context) => editcunday(id: id)));
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddEditcommon(id: id),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    await _deleteData(context, id, dbHelper, onDelete);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        const Size.fromHeight(40), // Make button full width
                   ),
-                ).then((value) {
-                  onEdit(); // 刷新数据
-                });
-              },
-              child: Text(S.of(context).Edit),
+                  child: Text(S.of(context).Delete),
+                ),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text(S.of(context).Cancel),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddEditcommon(id: id),
+                      ),
+                    ).then((value) {
+                      onEdit(); // Refresh data
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        const Size.fromHeight(40), // Make button full width
+                  ),
+                  child: Text(S.of(context).Edit),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        const Size.fromHeight(40), // Make button full width
+                  ),
+                  child: Text(S.of(context).Cancel),
+                ),
+              ),
             ),
           ],
         );
@@ -62,7 +87,7 @@ class DeleteEditAll {
     await dbHelper.deleteData(id);
     onDelete(); // 调用外部传入的回调函数刷新数据
     ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(content: Text(S.of(context).DeF)),
+      SnackBar(content: Text(S.of(context).DeF)),
     );
   }
 }
@@ -76,7 +101,7 @@ class AddNoteTag {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title:  Text(S.of(context).AddTag),
+          title: Text(S.of(context).AddTag),
           content: TextField(
             controller: _tagController,
           ),
@@ -93,7 +118,7 @@ class AddNoteTag {
                   Navigator.pop(context);
                 }
               },
-              child:  Text(S.of(context).Yes),
+              child: Text(S.of(context).Yes),
             ),
           ],
         );
@@ -112,30 +137,57 @@ class DeleteEditNote {
           title: Text(S.of(context).EditDelete),
           content: Text(S.of(context).ThisUndone),
           actions: [
-            ElevatedButton(
-              onPressed: () async {
-                Navigator.pop(context);
-                await _deleteData2(context, id, dbHelper, onDelete);
-              },
-              child: Text(S.of(context).Delete),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context);
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => AddNotePage(id: id),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () async {
+                    Navigator.pop(context);
+                    await _deleteData2(context, id, dbHelper, onDelete);
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        const Size.fromHeight(40), // Make button full width
                   ),
-                ).then((value) {
-                  Loaddata(); // 刷新数据
-                });
-              },
-              child: Text(S.of(context).Edit),
+                  child: Text(S.of(context).Delete),
+                ),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(S.of(context).Cancel),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () {
+                    Navigator.pop(context);
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddNotePage(id: id),
+                      ),
+                    ).then((value) {
+                      Loaddata(); // 刷新数据
+                    });
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        const Size.fromHeight(40), // Make button full width
+                  ),
+                  child: Text(S.of(context).Edit),
+                ),
+              ),
+            ),
+            Expanded(
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 4.0),
+                child: ElevatedButton(
+                  onPressed: () => Navigator.pop(context),
+                  style: ElevatedButton.styleFrom(
+                    minimumSize:
+                        const Size.fromHeight(40), // Make button full width
+                  ),
+                  child: Text(S.of(context).Cancel),
+                ),
+              ),
             ),
           ],
         );
@@ -148,7 +200,7 @@ class DeleteEditNote {
     await dbHelper.deleteData2(id);
     onDelete(); // 调用外部传入的回调函数刷新数据
     ScaffoldMessenger.of(context).showSnackBar(
-       SnackBar(content: Text(S.of(context).DeF)),
+      SnackBar(content: Text(S.of(context).DeF)),
     );
   }
 }
@@ -159,17 +211,17 @@ class UpdateComCompletionDialog {
       context: context,
       builder: (context) {
         return AlertDialog(
-          title:  Text(S.of(context).DownloadCompleted),
-          content:  Text(S.of(context).DownloadFinInfo),
+          title: Text(S.of(context).DownloadCompleted),
+          content: Text(S.of(context).DownloadFinInfo),
           actions: [
             ElevatedButton(
-              child:  Text(S.of(context).Later),
+              child: Text(S.of(context).Later),
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
             ElevatedButton(
-              child:  Text(S.of(context).Open),
+              child: Text(S.of(context).Open),
               onPressed: () async {
                 Navigator.pop(context);
                 await OpenFilex.open(filePath,
@@ -191,8 +243,9 @@ class ShowUpdateDialog {
         context: context,
         builder: (context) {
           return AlertDialog(
-            title:  Text(S.of(context).UpdateAPP),
-            content: Text("${S.of(context).NewVer} $value \n新版本${la} \n是否更新到$value版本！"),
+            title: Text(S.of(context).UpdateAPP),
+            content: Text(
+                "${S.of(context).NewVer} $value \n新版本${la} \n是否更新到$value版本！"),
             actions: <Widget>[
               ElevatedButton(
                 child: Text(S.of(context).Cancel),
