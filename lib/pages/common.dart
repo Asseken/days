@@ -149,9 +149,9 @@ class _AddEditcommonState extends State<AddEditcommon> {
                 children: [
                   TextField(
                     controller: _titleController,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '输入事件标题',
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: S.of(context).NoteTitle,
                     ),
                   ),
                   const SizedBox(height: 10),
@@ -201,9 +201,9 @@ class _AddEditcommonState extends State<AddEditcommon> {
                   TextField(
                     controller: _descriptionController,
                     maxLines: 2,
-                    decoration: const InputDecoration(
-                      border: OutlineInputBorder(),
-                      labelText: '描述',
+                    decoration: InputDecoration(
+                      border: const OutlineInputBorder(),
+                      labelText: S.of(context).NoteContent,
                     ),
                   ),
                   const SizedBox(height: 10),

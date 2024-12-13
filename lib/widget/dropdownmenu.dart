@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../generated/l10n.dart';
+
 class DropdownMenuNode1 extends StatefulWidget {
   final ValueChanged<String> onValueChanged; // 添加回调函数
 
@@ -29,7 +31,8 @@ class _DropdownMenuNode1State extends State<DropdownMenuNode1> {
           size: 40,
         ),
         const SizedBox(width: 15),
-        Text('类型: $_dropdownValue', style: const TextStyle(fontSize: 20)),
+        Text("${S.of(context).Type} ${_dropdownValue}",
+            style: const TextStyle(fontSize: 20)),
         const SizedBox(width: 15),
         Container(
           alignment: Alignment.centerRight,

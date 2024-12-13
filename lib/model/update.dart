@@ -138,7 +138,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
     var permission = await _checkPermission();
     if (!permission) {
       setState(() {
-        status = "没有权限，下载失败";
+        status = S.of(context).DownloadErrorPer;
       });
       return;
     }
@@ -163,7 +163,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
           setState(() {
             progress = received / total;
             speed = _formatSize(speedInKB) + "/s";
-            status = "下载中...";
+            status = S.of(context).Download;
           });
 
           lastReceived = received;
@@ -235,15 +235,15 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: const Text("下载进度"),
+      title: Text(S.of(context).DownloadProgress),
       content: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
           LinearProgressIndicator(value: progress),
           const SizedBox(height: 10),
           Text("${(progress * 100).toStringAsFixed(0)}%"),
-          Text("速度: $speed"),
-          Text("状态: $status"),
+          Text("${S.of(context).speed}: $speed"),
+          Text("${S.of(context).status}: $status"),
         ],
       ),
       actions: [

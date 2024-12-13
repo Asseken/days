@@ -274,7 +274,7 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                     ],
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.all(8),
+                    padding: const EdgeInsets.all(7),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -327,12 +327,12 @@ class _AllNoteDisplayState extends State<AllNoteDisplay> {
                                   horizontal: 4, vertical: 2),
                               decoration: BoxDecoration(
                                 color: Colors.blue.shade100,
-                                borderRadius: BorderRadius.circular(12),
+                                borderRadius: BorderRadius.circular(15),
                               ),
                               child: Text(
                                 _isCompactMode
                                     ? item['Tag'].length > 3
-                                        ? "${item['Tag'].substring(0, 2)}"
+                                        ? "${item['Tag'].substring(0, 2)}.."
                                         : item['Tag']
                                     : item['Tag'].length > 3
                                         ? "${item['Tag'].substring(0, 3)}.."

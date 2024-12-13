@@ -13,7 +13,7 @@ class LanguageProvider extends ChangeNotifier {
   Future<void> loadSavedLanguage() async {
     try {
       final languageCode = await StorageLa.getData('language_code') ?? 'zh';
-      print('Loaded language: $languageCode'); // Debug print
+      // print('Loaded language: $languageCode'); // Debug print
       if (_locale.languageCode != languageCode) {
         _locale = Locale(languageCode, '');
         notifyListeners();
@@ -24,7 +24,7 @@ class LanguageProvider extends ChangeNotifier {
   }
 
   void changeLanguage(String languageCode) async {
-    print('Changing language to: $languageCode');
+    // print('Changing language to: $languageCode');
     await StorageLa.setData('language_code', languageCode);
 
     _locale = Locale(languageCode, '');

@@ -192,7 +192,7 @@ class ShowUpdateDialog {
         builder: (context) {
           return AlertDialog(
             title:  Text(S.of(context).UpdateAPP),
-            content: Text("发现新的版本 $value \n新版本${la} \n是否更新到$value版本！"),
+            content: Text("${S.of(context).NewVer} $value \n新版本${la} \n是否更新到$value版本！"),
             actions: <Widget>[
               ElevatedButton(
                 child: Text(S.of(context).Cancel),

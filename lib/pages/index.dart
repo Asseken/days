@@ -81,22 +81,20 @@ class _FirstPageState extends State<FirstPage> {
               child: Column(
                 children: [
                   ListTile(
-                    title: Center(
+                    title: SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
                       child: Row(
                         children: [
                           Text(
                             item['name'].length > 5
                                 ? "${item['name'].substring(0, 5)}..."
                                 : item['name'],
-                            style: TextStyle(
-                              fontSize: item['name'].length > 5 ? 30 : 35,
-                            ), // 如果文本长度大于5，字体变小),
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                            softWrap: true,
+                            style: const TextStyle(
+                              fontSize: 35,
+                            ),
                           ),
                           Container(
-                            padding: const EdgeInsets.fromLTRB(10, 1, 16, 0),
+                            padding: const EdgeInsets.fromLTRB(3, 0, 5, 0),
                             child: Text(
                               compareDates(
                                 item['time'],
@@ -110,13 +108,13 @@ class _FirstPageState extends State<FirstPage> {
                   ),
                   ListTile(
                     title: Text(
-                      "时间: ${item['time']}",
+                      "${S.of(context).Time}${item['time']}",
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
                   ListTile(
                     title: Text(
-                      "标记: ${item['Typedes']}",
+                      "${S.of(context).Type}${item['Typedes']}",
                       style: const TextStyle(fontSize: 20),
                     ),
                   ),
