@@ -207,11 +207,14 @@ class _AddEditcommonState extends State<AddEditcommon> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  SizedBox(
-                    height: 60,
-                    width: MediaQuery.of(context).size.width * 0.9,
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: ElevatedButton(
                       onPressed: _saveData,
+                      style: ElevatedButton.styleFrom(
+                        minimumSize:
+                            const Size.fromHeight(50), // Make button full width
+                      ),
                       child: Text(S.of(context).Save),
                     ),
                   ),
