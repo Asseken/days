@@ -3,8 +3,7 @@ import 'package:days/pages/showcunday.dart';
 import 'package:days/sql/sql_c.dart';
 import 'package:days/widget/FlButton.dart';
 import 'package:flutter/material.dart';
-
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 import '../model/datejs.dart';
 import '../widget/Dialog.dart';
 import 'common.dart';

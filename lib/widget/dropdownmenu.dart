@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 
 class DropdownMenuNode1 extends StatefulWidget {
   final ValueChanged<String> onValueChanged; // 添加回调函数

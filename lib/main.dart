@@ -3,8 +3,8 @@ import 'package:days/theme/theme.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:provider/provider.dart';
-import 'Startpage.dart';
-import 'generated/l10n.dart';
+import 'StartPage.dart';
+import '../l10n/l10n.dart';
 import 'model/LanguageProvider.dart';
 
 void main() async {

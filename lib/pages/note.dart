@@ -2,8 +2,7 @@ import 'package:days/pages/ShowNote.dart';
 import 'package:days/widget/Dialog.dart';
 import 'package:days/widget/FlButton.dart';
 import 'package:flutter/material.dart';
-
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 import '../model/local_data.dart';
 import '../sql/sql_c.dart';
 import 'commonnote.dart';

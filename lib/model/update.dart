@@ -6,7 +6,7 @@ import 'dart:io';
 import 'package:dio/dio.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 
 class Getpackgeinfo {
   static String appName = "";

@@ -3,8 +3,7 @@ import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
-
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 import '../model/LanguageProvider.dart';
 import '../theme/theme.dart';
 

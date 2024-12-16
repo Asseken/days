@@ -5,7 +5,7 @@ import 'package:flutter_lunar_datetime_picker/flutter_lunar_datetime_picker.dart
 import 'package:flutter_quill/flutter_quill.dart' as quill;
 import 'package:flutter_quill/flutter_quill.dart';
 import 'package:intl/intl.dart';
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 import '../sql/sql_c.dart';
 import '../widget/Dialog.dart';
 

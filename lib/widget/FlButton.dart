@@ -1,10 +1,7 @@
-import 'package:days/pages/add.dart';
-import 'package:days/pages/addnote.dart';
 import 'package:days/pages/common.dart';
 import 'package:days/pages/commonnote.dart';
 import 'package:flutter/material.dart';
-
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 
 Widget flbutton(context, Function loadData) {
   return SizedBox(

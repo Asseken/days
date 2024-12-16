@@ -2,8 +2,7 @@
 import 'package:days/sql/sql_c.dart';
 import 'package:flutter/material.dart';
 import 'package:open_filex/open_filex.dart';
-
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 import '../pages/common.dart';
 import '../pages/commonnote.dart';
 import '../pages/edit.dart';

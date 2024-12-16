@@ -42,7 +42,7 @@
   "AddTag": "Add Tag",
   "DownloadCompleted" : "Download Completed",
   "DownloadFailed" : "Download Failed",
-  "Download" : "Download",
+  "Download" : "Downloading",
   "Open" : "Open",
   "DownloadError" : "Download Error",
   "DownloadFinInfo" : "The file has been successfully downloaded, do you want to install it now?",
@@ -51,6 +51,12 @@
   "UpdateAPP": "Update APP Tip!",
   "speed": "Speed:",
   "DownloadSpeed": "Download Speed",
-  "status": "Status:"
+  "status": "Status:",
+  "Type" : "Type:",
+  "DownloadProgress" : "Download Progress",
+  "PreparingDownload": "Preparing download...",
+  "DownloadErrorPer" : "No permission, download failed!",
+  "today": "Today",
+  "NewVer" : "New version found"
 
 }

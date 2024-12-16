@@ -1,11 +1,9 @@
 import 'dart:io';
-
-import 'package:days/pages/addnote.dart';
 import 'package:days/pages/index.dart';
 import 'package:days/pages/setting.dart';
 import 'package:flutter/material.dart';
 
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 import 'note.dart';
 
 class Homepage extends StatefulWidget {

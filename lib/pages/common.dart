@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:days/sql/sql_c.dart';
 import 'package:days/widget/dropdownmenu.dart';
 
-import '../generated/l10n.dart';
+import '../l10n/l10n.dart';
 
 class AddEditcommon extends StatefulWidget {
   final int? id; // Optional ID for editing an existing entry
