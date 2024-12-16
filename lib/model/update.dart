@@ -126,7 +126,14 @@ class DownloadProgressDialog extends StatefulWidget {
 class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
   double progress = 0.0;
   String speed = "0 KB/s";
-  String status = "准备下载...";
+  String status = "";
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    // 在这里设置本地化的状态
+    status = S.of(context).Download;
+  }
 
   @override
   void initState() {
@@ -247,7 +254,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
         ],
       ),
       actions: [
-        TextButton(
+        ElevatedButton(
           child: Text(S.of(context).Cancel),
           onPressed: () {
             Navigator.pop(context);
