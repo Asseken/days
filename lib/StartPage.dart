@@ -50,7 +50,8 @@ class _StartPageState extends State<StartPage> {
       body: SizedBox(
         width: MediaQuery.of(context).size.width,
         height: MediaQuery.of(context).size.height,
-        child: const FlutterLogo(),
+        // child: const FlutterLogo(),
+        child: const Image(image: AssetImage('assets/AppIcon/AppIcon.png')),
       ),
       // backgroundColor: const Color.fromARGB(255, 236, 232, 243),
     );
