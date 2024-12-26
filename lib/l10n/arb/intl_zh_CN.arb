@@ -57,7 +57,9 @@
   "PreparingDownload": "准备下载...",
   "DownloadErrorPer" : "没有权限，下载失败!",
   "today": "就是今天",
-  "NewVer" : "发现新的版本"
-
+  "NewVer" : "发现新的版本",
+  "About" : "关于",
+  "Backups" : "备份",
+  "SPT" : "简单项目测试!"
 
 }

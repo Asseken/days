@@ -57,6 +57,9 @@
   "PreparingDownload": "Preparing download...",
   "DownloadErrorPer" : "No permission, download failed!",
   "today": "Today",
-  "NewVer" : "New version found"
+  "NewVer" : "New version found",
+  "About": "About",
+  "Backups": "Backups",
+  "SPT": "Simple project testing!"
 
 }
