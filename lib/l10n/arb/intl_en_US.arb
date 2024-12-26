@@ -60,6 +60,8 @@
   "NewVer" : "New version found",
   "About": "About",
   "Backups": "Backups",
-  "SPT": "Simple project testing!"
+  "SPT": "Simple project testing!",
+  "All": "All"
+
 
 }

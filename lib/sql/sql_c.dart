@@ -111,6 +111,13 @@ class sqlite {
     return await db.query(table2, where: 'title = ?', whereArgs: [title]);
   }
 
+  //获取table2的全部tag数据
+  Future<List<Map<String, dynamic>>> getAllTag() async {
+    final db = await openDb();
+    return await db.query(table2, columns: ['Tag']);
+  }
+
+
   //获取的单挑数据
   Future<Map<String, dynamic>> getOneData(int id) async {
     final db = await openDb();

@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../l10n/l10n.dart';
+import '../model/Backup.dart';
 import '../model/LanguageProvider.dart';
 import '../theme/theme.dart';
 
@@ -28,7 +29,9 @@ class _SettingState extends State<Setting> {
                 padding: const EdgeInsets.all(10),
                 width: 200,
                 height: 200,
-                child: const FlutterLogo(size: 100)),
+                child: const Image(
+                  image: AssetImage('assets/AppIcon/AppIcon.png'),
+                )),
           ),
           const Divider(),
           Consumer<ThemeProvider>(
@@ -128,7 +131,7 @@ class _SettingState extends State<Setting> {
           const Divider(),
           ListTile(
             title: Text(S.of(context).UpDate),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            trailing: const Icon(Icons.update_rounded),
             onTap: () {
               Getpackgeinfo.githubrelease(context);
             },
@@ -136,7 +139,7 @@ class _SettingState extends State<Setting> {
           const Divider(),
           ListTile(
             title: Text(S.of(context).Code),
-            trailing: const Icon(Icons.arrow_forward_ios),
+            trailing: const Icon(Icons.code_outlined),
             onTap: () async {
               //打开浏览器
               const url = 'https://github.com/Asseken/days';
@@ -145,6 +148,37 @@ class _SettingState extends State<Setting> {
               } else {
                 throw "Could not launch $url";
               }
+            },
+          ),
+          const Divider(),
+          ListTile(
+              title: Text(S.of(context).Backups),
+              trailing: const Icon(Icons.backup_outlined),
+              onTap: () async {
+                // 创建 BackupDate 的实例
+                BackupDate backupDate = BackupDate();
+                // 调用备份方法
+                await backupDate.backupDatabase(context);
+              }),
+          const Divider(),
+          ListTile(
+            title: Text(S.of(context).About),
+            trailing: const Icon(Icons.info_outline),
+            onTap: () async {
+              await Getpackgeinfo.getPackageInfo();
+              showAboutDialog(
+                context: context,
+                applicationName: 'Days',
+                applicationVersion: Getpackgeinfo.appversion,
+                applicationIcon: const Image(
+                  image: AssetImage('assets/AppIcon/AppIcon.png'),
+                  width: 50,
+                  height: 50,
+                ),
+                children: [
+                  Text(S.of(context).SPT),
+                ],
+              );
             },
           ),
           const Divider(),
