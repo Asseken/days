@@ -32,6 +32,7 @@ class MyApp extends StatelessWidget {
     return Consumer2<ThemeProvider, LanguageProvider>(
       builder: (context, themeProvider, languageProvider, child) {
         return MaterialApp(
+          debugShowCheckedModeBanner: false,
           title: 'Days',
           theme: themeProvider.getCurrentTheme(),
           themeMode: themeProvider.themeMode,
