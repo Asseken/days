@@ -60,10 +60,13 @@
   "NewVer" : "New version found",
   "About": "About",
   "Backups": "Backups",
+  "Restore": "Restore",
   "SPT": "Simple project testing!",
   "All": "All",
   "BackupsS": "Backup successful!",
-  "BackupsF": "Backup Failed!"
+  "BackupsF": "Backup Failed!",
+  "RestoreS": "Restore successful!",
+  "RestoreF": "Restore Failed!"
 
 
 }

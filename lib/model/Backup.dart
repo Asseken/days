@@ -50,4 +50,34 @@ class BackupDate {
       );
     }
   }
+
+  //恢复数据
+  Future<void> restoreDatabase(context) async {
+    try {
+      if (Platform.isAndroid) {
+        final directory = await getExternalStorageDirectory();
+        localPath = directory!.path;
+        var databasesPath = localPath;
+        String path = "$databasesPath/$sqlfile";
+        var database = await openDatabase(path);
+        await database.close();
+        await ensureDirectoryExists(AndroidPath);
+        //文件复制
+        await File('${AndroidPath}/$sqlfile').copy(path);
+      } else {
+        String executablePath = Platform.resolvedExecutable;
+        String executableDir = path.dirname(executablePath);
+        String databasePath = '$executableDir/$windowsSrc/$sqlfile';
+        await ensureDirectoryExists(WindowsPath);
+        await File('$WindowsPath/$sqlfile').copy(databasePath);
+      }
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text(S.of(context).RestoreS)),
+      );
+    } catch (e) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text("${S.of(context).RestoreF}${e.toString()}")),
+      );
+    }
+  }
 }

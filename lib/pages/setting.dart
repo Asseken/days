@@ -23,6 +23,7 @@ class _SettingState extends State<Setting> {
         title: Text(S.of(context).Setting),
       ),
       body: ListView(
+        padding: const EdgeInsets.all(2),
         children: [
           Center(
             child: Container(
@@ -151,15 +152,30 @@ class _SettingState extends State<Setting> {
             },
           ),
           const Divider(),
-          ListTile(
-              title: Text(S.of(context).Backups),
-              trailing: const Icon(Icons.backup_outlined),
-              onTap: () async {
-                // 创建 BackupDate 的实例
-                BackupDate backupDate = BackupDate();
-                // 调用备份方法
-                await backupDate.backupDatabase(context);
-              }),
+          ExpansionTile(
+            initiallyExpanded: false,
+            title: Text(S.of(context).Backups),
+            children: [
+              ListTile(
+                  title: Text(S.of(context).Backups),
+                  trailing: const Icon(Icons.backup_outlined),
+                  onTap: () async {
+                    // 创建 BackupDate 的实例
+                    BackupDate backupDate = BackupDate();
+                    // 调用备份方法
+                    await backupDate.backupDatabase(context);
+                  }),
+              ListTile(
+                  title: Text(S.of(context).Restore),
+                  trailing: const Icon(Icons.restore_outlined),
+                  onTap: () async {
+                    // 创建 BackupDate 的实例
+                    BackupDate backupDate = BackupDate();
+                    // 调用备份方法
+                    await backupDate.restoreDatabase(context);
+                  }),
+            ],
+          ),
           const Divider(),
           ListTile(
             title: Text(S.of(context).About),
