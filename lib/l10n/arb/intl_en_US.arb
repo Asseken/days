@@ -61,7 +61,9 @@
   "About": "About",
   "Backups": "Backups",
   "SPT": "Simple project testing!",
-  "All": "All"
+  "All": "All",
+  "BackupsS": "Backup successful!",
+  "BackupsF": "Backup Failed!"
 
 
 }
