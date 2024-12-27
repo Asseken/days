@@ -20,14 +20,20 @@ class Getpackgeinfo {
     var response = await Dio().get(url);
     var data = response.data;
     var version = data["tag_name"];
+    var AppName = data["assets"][0]["name"];
+    //保留两位小数
+    double PackageSize = data["assets"][0]["size"] / 1024 / 1024;
+    String formattedSize = PackageSize.toStringAsFixed(2);
     var latestReleasesNnotes = data["body"];
     await getPackageInfo();
     if (appversion != version) {
       //下载新的版本
-      // _downLoad();
-      // getPackageInfo();
       ShowUpdateDialog.showUpdateDialog(context, _showDownloadProgress,
-          value: version, la: latestReleasesNnotes);
+          value: version,
+          la: latestReleasesNnotes,
+          size: formattedSize,
+          AppName: AppName,
+          formattedSize: formattedSize);
       // print("本地版本:$appversion,远端版本:$version");
     } else {
       // print("已经是最新版本");
@@ -44,18 +50,19 @@ class Getpackgeinfo {
     Directory? directory = await getExternalStorageDirectory();
     String storageDirectory = directory!.path;
 
-    print("tempPath:$tempPath");
-    print("appDocDir:$appDocPath");
-    print("StorageDirectory:$storageDirectory");
+    // print("tempPath:$tempPath");
+    // print("appDocDir:$appDocPath");
+    // print("StorageDirectory:$storageDirectory");
   }
 
-  static Future<void> _showDownloadProgress(
-      BuildContext context, String value) async {
+  static Future<void> _showDownloadProgress(BuildContext context, String value,
+      String AppName, String formattedSize) async {
     showDialog(
         context: context,
         barrierDismissible: false,
         builder: (context) {
-          return DownloadProgressDialog(value: value);
+          return DownloadProgressDialog(
+              value: value, AppName: AppName, formattedSize: formattedSize);
         });
   }
 
@@ -116,7 +123,13 @@ class Getpackgeinfo {
 
 class DownloadProgressDialog extends StatefulWidget {
   final String value;
-  const DownloadProgressDialog({Key? key, required this.value})
+  final String AppName;
+  final String formattedSize;
+  const DownloadProgressDialog(
+      {Key? key,
+      required this.value,
+      required this.AppName,
+      required this.formattedSize})
       : super(key: key);
 
   @override
@@ -152,7 +165,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
     String savePath = await _getSavePath();
 
     String apkUrl =
-        "https://github.com/Asseken/days-test/releases/download/${widget.value}/app-release.apk";
+        "https://github.com/Asseken/days-test/releases/download/${widget.value}/${widget.AppName}";
 
     Dio dio = Dio();
     int lastReceived = 0;
@@ -220,6 +233,10 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
     }
   }
 
+  String _formatSize1(double progress) {
+    return progress.toStringAsFixed(2);
+  }
+
   static Future<bool> _checkPermission() async {
     if (Platform.isAndroid) {
       final status = await Permission.storage.status;
@@ -249,6 +266,7 @@ class _DownloadProgressDialogState extends State<DownloadProgressDialog> {
           LinearProgressIndicator(value: progress),
           const SizedBox(height: 10),
           Text("${(progress * 100).toStringAsFixed(0)}%"),
+          Text("${_formatSize1(progress * 10)}MB/${widget.formattedSize}MB"),
           Text("${S.of(context).speed}: $speed"),
           Text("${S.of(context).status}: $status"),
         ],

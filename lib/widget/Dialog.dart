@@ -5,7 +5,6 @@ import 'package:open_filex/open_filex.dart';
 import '../l10n/l10n.dart';
 import '../pages/common.dart';
 import '../pages/commonnote.dart';
-import '../pages/edit.dart';
 
 class DeleteEditAll {
   static void showDeleteEditAllDialog(BuildContext context, int id,
@@ -225,14 +224,18 @@ class UpdateComCompletionDialog {
 class ShowUpdateDialog {
   static void showUpdateDialog(
       BuildContext context, Function showDownloadProgress,
-      {required String value, required String la}) {
+      {required String value,
+      required String la,
+      required String size,
+      required AppName,
+      required String formattedSize}) {
     showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
             title: Text(S.of(context).UpdateAPP),
             content: Text(
-                "${S.of(context).NewVer} $value \n新版本${la} \n是否更新到$value版本！"),
+                "${S.of(context).NewVer} $value \n${S.of(context).AppSz} : ${size}MB\n${la}\n是否更新到$value版本！"),
             actions: <Widget>[
               ElevatedButton(
                 child: Text(S.of(context).Cancel),
@@ -245,7 +248,7 @@ class ShowUpdateDialog {
                 onPressed: () {
                   Navigator.pop(context, 'Ok');
                   // _downLoad(value);
-                  showDownloadProgress(context, value);
+                  showDownloadProgress(context, value, AppName, formattedSize);
                 },
               )
             ],
