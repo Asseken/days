@@ -154,7 +154,7 @@ class _SettingState extends State<Setting> {
           const Divider(),
           ExpansionTile(
             initiallyExpanded: false,
-            title: Text(S.of(context).Backups),
+            title: Text(S.of(context).BR),
             children: [
               ListTile(
                   title: Text(S.of(context).Backups),

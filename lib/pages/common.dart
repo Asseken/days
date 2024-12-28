@@ -58,7 +58,7 @@ class _AddEditcommonState extends State<AddEditcommon> {
         formattedDate.isEmpty ||
         _descriptionController.text.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("请填写完整信息！")),
+        SnackBar(content: Text("${S.of(context).PPci}！")),
       );
       return;
     }
@@ -70,23 +70,29 @@ class _AddEditcommonState extends State<AddEditcommon> {
       'Typedes': typedesdropdownmenu,
       'value': 0
     };
+    try {
+      if (widget.id == null) {
+        // 新增逻辑
+        await dbHelper.insertData(data);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).SF)),
+        );
+      } else {
+        // 编辑逻辑
+        data['id'] = widget.id as Object;
+        await dbHelper.updateData(data);
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(S.of(context).UF)),
+        );
+      }
 
-    if (widget.id == null) {
-      // 新增逻辑
-      await dbHelper.insertData(data);
+      Navigator.pop(context, true);
+    } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("保存成功啦")),
+        SnackBar(content: Text("${S.of(context).FF}：$e")),
       );
-    } else {
-      // 编辑逻辑
-      data['id'] = widget.id as Object;
-      await dbHelper.updateData(data);
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("更新成功啦！")),
-      );
+      // print('保存失败：$e');
     }
-
-    Navigator.pop(context, true);
   }
 
   /// 获取格式化的日期

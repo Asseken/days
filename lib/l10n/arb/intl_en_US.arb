@@ -60,6 +60,7 @@
   "NewVer" : "New version found",
   "AppSz" : "App size",
   "About": "About",
+  "BR": "Backup & Restore",
   "Backups": "Backups",
   "Restore": "Restore",
   "SPT": "Simple project testing!",
@@ -67,7 +68,18 @@
   "BackupsS": "Backup successful!",
   "BackupsF": "Backup Failed!",
   "RestoreS": "Restore successful!",
-  "RestoreF": "Restore Failed!"
+  "RestoreF": "Restore Failed!",
+  "PPci":"Please provide complete information",
+  "SF":"Save successful",
+  "UF":"Update successful",
+  "FF":"Save failed",
+  "Mon":"Monday",
+  "Tue":"Tuesday",
+  "Wed":"Wednesday",
+  "Thu":"Thursday",
+  "Fri":"Friday",
+  "Sat":"Saturday",
+  "Sun":"Sunday"
 
 
 }

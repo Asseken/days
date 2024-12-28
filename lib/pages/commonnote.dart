@@ -80,7 +80,7 @@ class _AddNotePageState extends State<AddNotePage> {
 
     if (title.isEmpty || content.isEmpty) {
       ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("请填写完整信息！")),
+        SnackBar(content: Text("${S.of(context).PPci}!")),
       );
       return;
     }
@@ -98,22 +98,22 @@ class _AddNotePageState extends State<AddNotePage> {
         // 新建模式
         await dbHelper.insertData2(noteData);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("备忘录保存成功！")),
+          SnackBar(content: Text("${S.of(context).SF}！")),
         );
       } else {
         // 编辑模式
         noteData['id'] = widget.id.toString();
         await dbHelper.updateData2(noteData);
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("备忘录更新成功！")),
+           SnackBar(content: Text("${S.of(context).UF}！")),
         );
       }
       Navigator.pop(context, true);
     } catch (e) {
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("保存失败：$e")),
+        SnackBar(content: Text("${S.of(context).FF}：$e")),
       );
-      print('保存失败：$e');
+      // print('保存失败：$e');
     }
   }
 
