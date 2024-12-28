@@ -18,8 +18,9 @@ Widget flbutton(context, Function loadData) {
         },
         tooltip: S.of(context).Add,
         child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            const SizedBox(width: 10), // 添加间距
+            // const SizedBox(width: 12,height: 12,), // 添加间距
             Text(S.of(context).Add),
             const Icon(Icons.add),
           ],

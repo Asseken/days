@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import '../l10n/l10n.dart';
 import '../model/datejs.dart';
 import '../widget/Dialog.dart';
+import '../widget/QrCode.dart';
 import 'common.dart';
 
 class FirstPage extends StatefulWidget {
@@ -46,7 +47,14 @@ class _FirstPageState extends State<FirstPage> {
         // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const Qrcode(),
+                ),
+              );
+            },
             icon: const Icon(Icons.qr_code),
           ),
           IconButton(
@@ -129,7 +137,7 @@ class _FirstPageState extends State<FirstPage> {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => shouwcuntday(
+                  builder: (context) => ShowCuntDay(
                     id: item['id'],
                     onEdit: () {
                       _loadData();

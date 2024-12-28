@@ -1,20 +1,21 @@
 import 'package:days/pages/common.dart';
 import 'package:flutter/material.dart';
 
+import '../l10n/l10n.dart';
 import '../model/datejs.dart';
 import '../sql/sql_c.dart';
 
-class shouwcuntday extends StatefulWidget {
+class ShowCuntDay extends StatefulWidget {
   final int id;
 
   final VoidCallback onEdit; // 回调函数
-  const shouwcuntday({super.key, required this.id, required this.onEdit});
+  const ShowCuntDay({super.key, required this.id, required this.onEdit});
 
   @override
-  State<shouwcuntday> createState() => _shouwcuntdayState();
+  State<ShowCuntDay> createState() => _ShowCuntDayState();
 }
 
-class _shouwcuntdayState extends State<shouwcuntday> {
+class _ShowCuntDayState extends State<ShowCuntDay> {
   @override
   void initState() {
     // TODO: implement initState
@@ -87,7 +88,7 @@ class _shouwcuntdayState extends State<shouwcuntday> {
                           borderRadius: BorderRadius.circular(20),
                           // color: const Color.fromARGB(255, 179, 237, 201),
                         ),
-                        child: _buildDetailContent(_dataList),
+                        child: _buildDetailContent(_dataList, context),
                       ),
                     ),
                   );
@@ -97,11 +98,17 @@ class _shouwcuntdayState extends State<shouwcuntday> {
           },
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () async {
+          // 分享
+        },
+        child: const Icon(Icons.share),
+      ),
     );
   }
 }
 
-Widget _buildDetailContent(_dataList) {
+Widget _buildDetailContent(_dataList, BuildContext context) {
   return Center(
     child: Padding(
       padding: const EdgeInsets.all(10.0),
@@ -136,31 +143,33 @@ Widget _buildDetailContent(_dataList) {
               height: 10,
             ),
             Padding(
-                padding: const EdgeInsets.all(10),
-                child: SizedBox(
-                  child: Text(
-                    _dataList?['time'] != null
-                        ? "距离${_dataList?['name']}${compareDates(_dataList?['time'])}"
-                        : "",
-                    style: const TextStyle(
-                      fontSize: 20,
-                      color: Color.fromARGB(233, 84, 151, 243),
-                    ),
-                    maxLines: 2,
+              padding: const EdgeInsets.all(10),
+              child: SizedBox(
+                child: Text(
+                  _dataList?['time'] != null
+                      ? "距离${_dataList?['name']}${compareDates(_dataList?['time'])}"
+                      : "",
+                  style: const TextStyle(
+                    fontSize: 20,
+                    color: Color.fromARGB(233, 84, 151, 243),
                   ),
-                )),
+                  maxLines: 2,
+                ),
+              ),
+            ),
             const SizedBox(height: 10),
             SizedBox(
-              child: Text("描述:${_dataList?['description']}",
+              child: Text(
+                  "${S.of(context).NoteContent}:${_dataList?['description']}",
                   style: const TextStyle(fontSize: 20),
                   overflow: TextOverflow.ellipsis,
                   softWrap: true,
                   maxLines: 2),
             ),
-            Text("时间:${_dataList?['time']}",
+            Text("${S.of(context).Time}${_dataList?['time']}",
                 style: const TextStyle(fontSize: 20)),
             const Divider(),
-            Text("标记:${_dataList?['Typedes']}",
+            Text("${S.of(context).Type}${_dataList?['Typedes']}",
                 style: const TextStyle(fontStyle: FontStyle.italic)),
           ],
         ),

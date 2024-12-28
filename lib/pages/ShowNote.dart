@@ -45,7 +45,9 @@ class _ShowNotePageState extends State<ShowNotePage> {
             selection: const TextSelection.collapsed(offset: 0),
           );
         } catch (e) {
-          print('Failed to parse rich text content: $e');
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text("出bug啦$e")),
+          );
         }
       }
       _isLoading = false; // 加载完成
