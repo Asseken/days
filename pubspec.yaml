@@ -45,8 +45,11 @@ dependencies:
   sqflite: ^2.4.1
   sqflite_common_ffi: ^2.3.4+3
   sqlite3_flutter_libs: ^0.5.27
+  image_picker: ^1.1.2
+  barcode_scan2: ^4.3.3
+  qr_flutter: ^4.1.0
   #国际化
-  i18n: ^4.2.1
+#  i18n: ^4.2.1
   intl_utils: ^2.8.7
   flutter_localizations:
     sdk: flutter

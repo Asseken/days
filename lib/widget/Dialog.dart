@@ -347,7 +347,7 @@ class ShareQrCode {
                     height: 5,
                   ),
                   SizedBox(
-                    width: double.infinity,
+                    width: 320,
                     child: Center(
                       child: SingleChildScrollView(
                         scrollDirection: Axis.horizontal,
