@@ -1,4 +1,5 @@
 import 'package:days/pages/common.dart';
+import 'package:days/widget/Dialog.dart';
 import 'package:flutter/material.dart';
 
 import '../l10n/l10n.dart';
@@ -99,8 +100,9 @@ class _ShowCuntDayState extends State<ShowCuntDay> {
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () async {
+        onPressed: () {
           // 分享
+          ShareQrCode.showShareQrCodeDialog(context, _dataList);
         },
         child: const Icon(Icons.share),
       ),

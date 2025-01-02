@@ -1,10 +1,17 @@
 // delete_dialog.dart
+import 'dart:io';
+import 'package:path/path.dart' as path;
 import 'package:days/sql/sql_c.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:open_filex/open_filex.dart';
+import 'package:permission_handler/permission_handler.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import '../l10n/l10n.dart';
 import '../pages/common.dart';
 import '../pages/commonnote.dart';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
 
 class DeleteEditAll {
   static void showDeleteEditAllDialog(BuildContext context, int id,
@@ -254,5 +261,138 @@ class ShowUpdateDialog {
             ],
           );
         });
+  }
+}
+
+class ShareQrCode {
+  static final GlobalKey _repaintBoundaryKey = GlobalKey();
+  static Future<void> saveToGallery(BuildContext context) async {
+    try {
+      RenderRepaintBoundary? boundary = _repaintBoundaryKey.currentContext
+          ?.findRenderObject() as RenderRepaintBoundary?;
+      if (boundary == null) {
+        print('Error: Unable to capture the widget.');
+        return;
+      }
+
+      // Convert to Image
+      ui.Image image = await boundary.toImage(pixelRatio: 3.0);
+      ByteData? byteData =
+          await image.toByteData(format: ui.ImageByteFormat.png);
+      Uint8List pngBytes = byteData!.buffer.asUint8List();
+
+      Future<bool> checkPermission() async {
+        if (Platform.isAndroid) {
+          final status = await Permission.storage.status;
+          final status1 = await Permission.manageExternalStorage.isGranted;
+          if (status != PermissionStatus.granted ||
+              status1 != Permission.manageExternalStorage.isGranted) {
+            final result = await Permission.storage.request();
+            final result1 = await Permission.manageExternalStorage.request();
+            if (result == PermissionStatus.granted ||
+                result1 == PermissionStatus.granted) {
+              return true;
+            }
+          } else {
+            return true;
+          }
+        }
+        return true;
+      }
+
+      // Request storage permission
+      if (await checkPermission()) {
+        // Save to Pictures directory
+        var directory = Directory('/storage/emulated/0/Pictures');
+        if (Platform.isAndroid) {
+          directory = Directory('/storage/emulated/0/Pictures/days');
+        } else if (Platform.isWindows) {
+          // 获取当前可执行文件的目录
+          String executablePath = Platform.resolvedExecutable;
+          String executableDir = path.dirname(executablePath);
+          directory = Directory('$executableDir/Pictures');
+        }
+        if (!directory.existsSync()) {
+          directory.createSync(recursive: true);
+        }
+
+        final filePath =
+            '${directory.path}/qr_code_${DateTime.now().millisecondsSinceEpoch}.png';
+        final file = File(filePath);
+        await file.writeAsBytes(pngBytes);
+
+        print('Image saved to gallery: $filePath');
+      } else {
+        print('Permission denied.');
+      }
+    } catch (e) {
+      print('Error saving image: $e');
+    }
+  }
+
+  static void showShareQrCodeDialog(
+      BuildContext context, Map<String, dynamic>? dataList) {
+    showDialog(
+      context: context,
+      builder: (context) {
+        return AlertDialog(
+          backgroundColor: Colors.transparent,
+          title: RepaintBoundary(
+            key: _repaintBoundaryKey,
+            child: Container(
+              color: Colors.white,
+              child: Column(
+                children: [
+                  const SizedBox(
+                    height: 5,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    child: Center(
+                      child: SingleChildScrollView(
+                        scrollDirection: Axis.horizontal,
+                        child: Text(dataList?['name'] ?? ''),
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 320,
+                    height: 320,
+                    child: Center(
+                      child: QrImageView(
+                        data: dataList.toString(),
+                        version: QrVersions.auto,
+                        size: 320,
+                        gapless: false,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                          onPressed: () {
+                            // print(dataList.toString());
+                            saveToGallery(context);
+                          },
+                          child: Text(S.of(context).Save)),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        child: Text(S.of(context).Cancel),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  )
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
   }
 }

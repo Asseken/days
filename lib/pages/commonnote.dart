@@ -105,7 +105,7 @@ class _AddNotePageState extends State<AddNotePage> {
         noteData['id'] = widget.id.toString();
         await dbHelper.updateData2(noteData);
         ScaffoldMessenger.of(context).showSnackBar(
-           SnackBar(content: Text("${S.of(context).UF}！")),
+          SnackBar(content: Text("${S.of(context).UF}！")),
         );
       }
       Navigator.pop(context, true);
@@ -303,10 +303,12 @@ class _AddNotePageState extends State<AddNotePage> {
                 ),
               ),
               const Divider(),
-              Expanded(
-                child: QuillEditor.basic(
-                  controller: _controller,
-                  configurations: const QuillEditorConfigurations(),
+              SingleChildScrollView(
+                child: Expanded(
+                  child: QuillEditor.basic(
+                    controller: _controller,
+                    configurations: const QuillEditorConfigurations(),
+                  ),
                 ),
               ),
             ],

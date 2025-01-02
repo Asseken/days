@@ -1,6 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:path/path.dart' as path;
@@ -19,6 +20,25 @@ class BackupDate {
     if (!await directory.exists()) {
       await directory.create(recursive: true);
     }
+  }
+
+  static Future<bool> checkPermission() async {
+    if (Platform.isAndroid) {
+      final status = await Permission.storage.status;
+      final status1 = await Permission.manageExternalStorage.isGranted;
+      if (status != PermissionStatus.granted ||
+          status1 != Permission.manageExternalStorage.isGranted) {
+        final result = await Permission.storage.request();
+        final result1 = await Permission.manageExternalStorage.request();
+        if (result == PermissionStatus.granted ||
+            result1 == PermissionStatus.granted) {
+          return true;
+        }
+      } else {
+        return true;
+      }
+    }
+    return true;
   }
 
   //备份数据
@@ -55,6 +75,7 @@ class BackupDate {
   Future<void> restoreDatabase(context) async {
     try {
       if (Platform.isAndroid) {
+        await checkPermission();
         final directory = await getExternalStorageDirectory();
         localPath = directory!.path;
         var databasesPath = localPath;

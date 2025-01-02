@@ -47,13 +47,16 @@ class _FirstPageState extends State<FirstPage> {
         // backgroundColor: const Color.fromARGB(255, 181, 234, 202),
         actions: [
           IconButton(
-            onPressed: () {
-              Navigator.push(
+            onPressed: () async {
+              final qrup = await Navigator.push(
                 context,
                 MaterialPageRoute(
                   builder: (context) => const Qrcode(),
                 ),
               );
+              if (qrup != null) {
+                _onEdit();
+              }
             },
             icon: const Icon(Icons.qr_code),
           ),
